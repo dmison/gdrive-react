@@ -1,13 +1,22 @@
-const React = require('react');
+import React from 'react';
+import {Link} from 'react-router';
 
-const App = ()=>{
-
+const App = (props) => {
   return (
     <div>
-      <h1>oh hai</h1>
+      <h1>Email Thingy</h1>
+        <Link to=''>home</Link>
+      <Link to='mailings'>Mailings</Link>
+
+      {props.children}
     </div>
   );
 
 };
 
-module.exports = App;
+
+App.propTypes = {
+  children: React.PropTypes.node
+};
+
+export default App;
