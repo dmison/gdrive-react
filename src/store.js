@@ -2,6 +2,7 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { loadState, saveState } from './localStorage';
 import throttle from 'lodash/throttle';
 import {mailings_reducer} from './components/Mailing';
+import {recipients_reducer} from './components/Recipient';
 
 const logger = store => next => action => {
   console.log('dispatching', action);
@@ -11,7 +12,8 @@ const logger = store => next => action => {
 };
 
 const AppReducer = combineReducers({
-  mailings: mailings_reducer
+  mailings: mailings_reducer,
+  recipients: recipients_reducer
 });
 
 const persistedState = loadState();
@@ -19,9 +21,7 @@ const persistedState = loadState();
 const store = createStore(AppReducer, persistedState, applyMiddleware(logger));
 
 store.subscribe(throttle(()=>{
-  saveState({
-    mailings: store.getState().mailings
-  });
+  saveState(store.getState());
 }, 1000));
 
 export default store;

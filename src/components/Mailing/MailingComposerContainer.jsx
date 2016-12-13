@@ -1,20 +1,23 @@
 import {connect} from 'react-redux';
 import MailingComposer from './MailingComposer';
-
-// import {addMailingAction} from './actions.js';
+import {addRecipient, delRecipient} from '../Recipient';
 
 const mapStateToProps = (state, ownProps) => {
   return {
     uuid: ownProps.params.uuid,
     mailing: state.mailings.reduce((prev,curr)=>{
       return curr.id === ownProps.params.uuid? curr:prev;
-    }, null)
+    }, null),
+    recipients: state.recipients.filter((recipient)=>{
+      return recipient.mailing === ownProps.params.uuid;
+    })
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    // addMailing: (name) => { dispatch(addMailingAction(name)); }
+    addRecipient: (mailing, name, email) => { dispatch(addRecipient(mailing, name, email)); },
+    delRecipient: (mailing, recipient) => { dispatch(delRecipient(mailing, recipient)); },
   };
 };
 
