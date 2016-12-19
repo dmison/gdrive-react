@@ -16,7 +16,8 @@ render(<Provider store={store}>
     <Route path='/' component={App}>
       <IndexRoute component={home} />
       <Route path='mailings' component={MailingsManagerContainer} />
-      <Route path='mailing/:uuid' component={MailingComposerContainer} />
+      <Route path='mailings/:uuid' component={MailingComposerContainer} />
+
 
     </Route>
   </Router>

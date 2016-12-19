@@ -2,6 +2,7 @@ import uuid from 'node-uuid';
 
 const mailings_reducer = (mailings = [], action) => {
   switch (action.type){
+
   case 'ADD_MAILING':
     return mailings.concat({
       id: uuid.v1(),
@@ -9,6 +10,7 @@ const mailings_reducer = (mailings = [], action) => {
       recepients: [],
       content: []
     });
+
   default: return mailings;
   }
 };

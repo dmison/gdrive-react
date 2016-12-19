@@ -22,7 +22,7 @@ class MailingsManager extends React.Component {
           cancel={()=>{ this.setState({ adding: false}); }} /> : <button onClick={()=>{ this.setState({ adding: true}); }}>Add New</button>}
         <ul>
           {this.props.mailings.map((mailing)=>{
-            return <li key={mailing.id}><Link to={`mailing/${mailing.id}`}>{mailing.name}</Link></li>;
+            return <li key={mailing.id}><Link to={`mailings/${mailing.id}`}>{mailing.name}</Link></li>;
           })}
         </ul>
       </div>

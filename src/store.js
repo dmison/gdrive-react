@@ -3,6 +3,7 @@ import { loadState, saveState } from './localStorage';
 import throttle from 'lodash/throttle';
 import {mailings_reducer} from './components/Mailing';
 import {recipients_reducer} from './components/Recipient';
+import {content_reducer} from './components/Content';
 
 const logger = store => next => action => {
   console.log('dispatching', action);
@@ -13,7 +14,8 @@ const logger = store => next => action => {
 
 const AppReducer = combineReducers({
   mailings: mailings_reducer,
-  recipients: recipients_reducer
+  recipients: recipients_reducer,
+  content: content_reducer
 });
 
 const persistedState = loadState();
