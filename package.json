@@ -18,13 +18,18 @@
     "babel-preset-react": "^6.16.0",
     "babel-preset-react-hmre": "^1.1.1",
     "babel-preset-stage-0": "^6.16.0",
+    "css-loader": "^0.26.1",
     "eslint": "^3.10.2",
     "eslint-plugin-react": "^6.7.1",
+    "file-loader": "^0.9.0",
+    "style-loader": "^0.13.1",
+    "url-loader": "^0.5.7",
     "webpack": "^1.13.3",
     "webpack-dev-server": "^1.16.2"
   },
   "dependencies": {
     "draft-js": "^0.9.1",
+    "font-awesome": "^4.7.0",
     "google-client-api": "^1.0.4",
     "index-template": "^1.1.1",
     "lodash": "^4.17.2",
