@@ -9,12 +9,14 @@ class CommonContentEditor extends React.Component {
     };
     this._onChange = this._onChange.bind(this);
     this._handleKeyCommand = this._handleKeyCommand.bind(this);
-    this._onBoldClick = this._onBoldClick.bind(this);
-    this._onItalicClick = this._onItalicClick.bind(this);
-    this._onUnderlineClick = this._onUnderlineClick.bind(this);
+
+    this._toggleBlockType = this._toggleBlockType.bind(this);
+    this._toggleInlineStyle = this._toggleInlineStyle.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
+    // if content id is different this means that the content is now different
+    // because the content blocks on the page have been reordered
     if(nextProps.content.id !== this.props.content.id){
       this.setState({ editorState: EditorState.createWithContent(convertFromRaw(nextProps.content.editorContent))});
     }
@@ -34,27 +36,20 @@ class CommonContentEditor extends React.Component {
     return 'not-handled';
   }
 
-  _onBoldClick() {
-    this._onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'BOLD'));
+  _toggleInlineStyle(style){
+    this._onChange(RichUtils.toggleInlineStyle(this.state.editorState, style));
   }
-  _onItalicClick() {
-    this._onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'ITALIC'));
-  }
-  _onUnderlineClick() {
-    this._onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'UNDERLINE'));
+  _toggleBlockType(type){
+    this._onChange(RichUtils.toggleBlockType(this.state.editorState, type));
   }
 
   render(){
     return (
-      <div style={{backgroundColor: 'lightGrey', padding: 5, marginBottom: 5}}
-        onMouseEnter={()=>{this.setState({showControls: true});}}
-        onMouseLeave={()=>{this.setState({showControls: false});}}
-        >
+      <div style={{backgroundColor: 'lightGrey', padding: 5, marginBottom: 5}} >
         <ToolBar
           type={this.props.content.type}
-          _onBoldClick={this._onBoldClick}
-          _onItalicClick={this._onItalicClick}
-          _onUnderlineClick={this._onUnderlineClick}
+          _toggleBlockType={(type)=>{ this._toggleBlockType(type); }}
+          _toggleInlineStyle={(style)=>{ this._toggleInlineStyle(style); }}
           _moveUp={()=>{ this.props.moveContent('up'); }}
           _moveDown={()=>{ this.props.moveContent('down'); }}
           _delete={()=>{
@@ -68,7 +63,8 @@ class CommonContentEditor extends React.Component {
           ref={(input)=>{ this.editor = input; }}
           editorState={this.state.editorState}
           onChange={this._onChange}
-          handleKeyCommand={this._handleKeyCommand}/>
+          handleKeyCommand={this._handleKeyCommand}
+          placeholder='Put content here that will go to all recipients.'/>
         </div>
       </div>
     );
@@ -82,6 +78,8 @@ CommonContentEditor.propTypes = {
   moveContent: React.PropTypes.func
 };
 
+
+
 const buttonBlockStyle = {
   paddingRight: 10
 };
@@ -92,7 +90,29 @@ const toolBarStyle = {
   marginBottom: 6
 };
 
+const INLINE_STYLES = [
+  {label: 'Bold', style: 'BOLD', icon: 'BOLD'},
+  {label: 'Italic', style: 'ITALIC', icon: 'ITALIC'},
+  {label: 'Underline', style: 'UNDERLINE', icon: 'UNDERLINE'},
+  {label: 'Monospace', style: 'CODE', icon: 'CODE'}
+];
+
+const BLOCK_TYPES = [
+  {label: 'H1', style: 'header-one', icon: 'header-one'},
+  {label: 'H2', style: 'header-two', icon: 'header-two'},
+  {label: 'H3', style: 'header-three', icon: 'header-three'},
+  // {label: 'H4', style: 'header-four', icon: 'header-four'},
+  // {label: 'H5', style: 'header-five', icon: 'header-five'},
+  // {label: 'H6', style: 'header-six', icon: 'header-six'},
+  {label: 'Blockquote', style: 'blockquote', icon: 'blockquote'},
+  {label: 'UL', style: 'unordered-list-item', icon: 'unordered-list-item'},
+  {label: 'OL', style: 'ordered-list-item', icon: 'ordered-list-item'},
+  {label: 'Code Block', style: 'code-block', icon: 'code-block'},
+];
+
+
 const ToolBar = (props) => {
+
   return (
     <div className="toolbar" style={toolBarStyle}>
       <div className='controls'>
@@ -103,9 +123,18 @@ const ToolBar = (props) => {
           <button onClick={props._moveUp}>Up</button>
           <button onClick={props._moveDown}>Down</button>
         </span>
-        <button onClick={props._onBoldClick}><span style={{fontWeight: 'bold'}}>B</span></button>
-        <button onClick={props._onItalicClick}><span style={{fontStyle: 'italic'}}>I</span></button>
-        <button onClick={props._onUnderlineClick}><span style={{textDecoration: 'underline'}}>U</span></button>
+        <span style={buttonBlockStyle}>
+          {INLINE_STYLES.map((style, index)=>{
+            return <button key={index} onClick={()=>{ props._toggleInlineStyle(style.style);} }>{style.label}</button>;
+          })}
+        </span>
+        <span style={buttonBlockStyle}>
+          <span style={buttonBlockStyle}>
+            {BLOCK_TYPES.map((type, index)=>{
+              return <button  key={index} onClick={()=>{ props._toggleBlockType(type.style);} }>{type.label}</button>;
+            })}
+          </span>
+        </span>
         <span style={{float: 'right', backgroundColor:'lightgreen', padding: 2, margin: 1}}>{props.type}</span>
       </div>
   </div>
@@ -114,13 +143,11 @@ const ToolBar = (props) => {
 };
 ToolBar.propTypes = {
   type: React.PropTypes.string,
-  showControls: React.PropTypes.bool,
-  _onBoldClick: React.PropTypes.func,
-  _onItalicClick: React.PropTypes.func,
-  _onUnderlineClick: React.PropTypes.func,
+  _toggleBlockType: React.PropTypes.func,
+  _toggleInlineStyle: React.PropTypes.func,
   _delete: React.PropTypes.func,
   _moveUp: React.PropTypes.func,
-  _moveDown: React.PropTypes.func
+  _moveDown: React.PropTypes.func,
 };
 
 
