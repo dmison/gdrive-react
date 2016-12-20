@@ -12,6 +12,7 @@ class RecipientsManager extends React.Component {
   render() {
     return (
       <div>
+        <h4>Recipients</h4>
         <ul>
           <li>
             {this.state.adding ? <AddNewRecipientControl
