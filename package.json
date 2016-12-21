@@ -1,5 +1,5 @@
 {
-  "name": "Hydra Mail",
+  "name": "Polydactyl",
   "version": "1.0.0",
   "description": "A web UI for sending bulk emails with per-recipient custom content.",
   "main": "index.js",
