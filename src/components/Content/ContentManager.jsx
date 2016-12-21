@@ -7,7 +7,7 @@ const ContentManager = (props) => {
     <div>
       <button onClick={props.addCommonContent}>Add Common Content</button>
       <button>Add Per-Recipient Content</button>
-      <div>
+      <ul style={{ listStyleType:'none', paddingLeft:0}}>
         {props.content.map((content, index)=>{
           let Editor = '';
           switch(content.type){
@@ -24,10 +24,9 @@ const ContentManager = (props) => {
           // case 'Per-Recipient': return PerRecipientContentEditor;
           default: '';
           }
-          return <div key={index}>{Editor}</div>;
+          return <li key={index}>{Editor}</li>;
         })}
-
-      </div>
+      </ul>
     </div>
   );
 };
