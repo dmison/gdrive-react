@@ -45,27 +45,37 @@ class CommonContentEditor extends React.Component {
   }
 
   render(){
+
+    const currentInlineStyle = this.state.editorState.getCurrentInlineStyle();
+    const currentBlockType = this.state.editorState.getCurrentContent().getBlockForKey(this.state.editorState.getSelection().getStartKey()).getType();
+
+
     return (
-      <div style={{backgroundColor: 'lightGrey', padding: 5, marginBottom: 5}} >
-        <ToolBar
-          type={this.props.content.type}
-          _toggleBlockType={(type)=>{ this._toggleBlockType(type); }}
-          _toggleInlineStyle={(style)=>{ this._toggleInlineStyle(style); }}
-          _moveUp={()=>{ this.props.moveContent('up'); }}
-          _moveDown={()=>{ this.props.moveContent('down'); }}
-          _delete={()=>{
-            if(window.confirm('Deleting content is unrecoverable.  Are you sure?')){
-              this.props.delete(this.props.content.id);
-            }
-          }}
-          />
-        <div style={{backgroundColor: 'white', padding: 8}}>
-        <Editor
-          ref={(input)=>{ this.editor = input; }}
-          editorState={this.state.editorState}
-          onChange={this._onChange}
-          handleKeyCommand={this._handleKeyCommand}
-          placeholder='Put content here that will go to all recipients.'/>
+      <div className='panel panel-default'>
+        <div className='panel-heading' style={{padding:3}}>
+          <ContentEditorToolBar
+            type={this.props.content.type}
+            currentInlineStyle={currentInlineStyle}
+            currentBlockType={currentBlockType}
+            _toggleBlockType={(type)=>{ this._toggleBlockType(type); }}
+            _toggleInlineStyle={(style)=>{ this._toggleInlineStyle(style); }}
+            _moveUp={()=>{ this.props.moveContent('up'); }}
+            _moveDown={()=>{ this.props.moveContent('down'); }}
+            _delete={()=>{
+              if(window.confirm('Deleting content is unrecoverable.  Are you sure?')){
+                this.props.delete(this.props.content.id);
+              }
+            }}
+            />
+        </div>
+        <div className='panel-body'>
+          <Editor
+            ref={(input)=>{ this.editor = input; }}
+            editorState={this.state.editorState}
+            onChange={this._onChange}
+            handleKeyCommand={this._handleKeyCommand}
+            placeholder='Put content here that will go to all recipients.'/>
+
         </div>
       </div>
     );
