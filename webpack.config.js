@@ -25,7 +25,7 @@ module.exports = {
       /** style */
       {
         test: /\.css/,
-        loader: 'style!css?sourceMap',
+        loader: 'style-loader!css-loader',
       },
 
       /** font-awesome */
