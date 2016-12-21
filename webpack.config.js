@@ -17,7 +17,7 @@ module.exports = {
   },
 
   resolve: {
-    extensions: ['', '.js', '.jsx', 'css']
+    extensions: ['', '.js', '.jsx', 'css', 'json']
   },
 
   module: {
@@ -45,6 +45,7 @@ module.exports = {
         test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
         loader: 'url?limit=10000&mimetype=image/svg+xml'
       },
+      { test: /\.json$/, loader: 'json' },
       {
         test: /\.jsx$/,
         exclude: /node_modules/,
