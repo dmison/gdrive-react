@@ -1,5 +1,7 @@
 // https://forum.vuejs.org/t/webpack-doesnt-export-font-awesome-icons-correctly/980/10
 import '!style!css!font-awesome/css/font-awesome.css';
+import '!style!css!bootstrap/dist/css/bootstrap.css';
+import '!style!css!bootstrap/dist/css/bootstrap-theme.css';
 
 import React from 'react';
 import {render} from 'react-dom';
