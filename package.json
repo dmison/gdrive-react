@@ -29,6 +29,7 @@
     "webpack-dev-server": "^1.16.2"
   },
   "dependencies": {
+    "bootstrap": "^3.3.7",
     "draft-js": "^0.9.1",
     "font-awesome": "^4.7.0",
     "google-client-api": "^1.0.4",
