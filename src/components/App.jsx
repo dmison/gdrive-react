@@ -1,20 +1,27 @@
 import React from 'react';
 import {Link} from 'react-router';
-import {name} from '!json!../../package.json';
+import {name} from '../../package.json';
 
 const App = (props) => {
   return (
     <div>
 
-      <nav id='main-nav'>
-        <div className='container'>
-          <span className='navbar-brand'> {name} </span>
-          <ul className='nav navbar-nav'>
-            <li><Link to=''>home</Link></li>
-            <li><Link to='mailings'>Mailings</Link></li>
-          </ul>
+      <nav className="navbar navbar-inverse">
+        <div className="container-fluid">
+          <div className="navbar-header">
+            <a className="navbar-brand" href="#">
+              <Link to='/'>{name}</Link>
+            </a>
+            <ul className='nav navbar-nav'>
+              <li><Link activeClassName='active' to='/'>Home</Link></li>
+              <li><Link activeClassName='active' to='mailings'>Mailings</Link></li>
+              <li><Link activeClassName='active' to='about'>About</Link></li>
+            </ul>
+
           </div>
+        </div>
       </nav>
+
 
       <div className='container'>
         {props.children}

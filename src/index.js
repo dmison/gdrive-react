@@ -1,8 +1,7 @@
 // https://forum.vuejs.org/t/webpack-doesnt-export-font-awesome-icons-correctly/980/10
-import '!style!css!font-awesome/css/font-awesome.css';
-import '!style!css!bootstrap/dist/css/bootstrap.css';
-import '!style!css!bootstrap/dist/css/bootstrap-theme.css';
-import '!style!css!./style.css';
+
+require('font-awesome/css/font-awesome.css');
+require('./bootstrap/bootstrap.less');
 
 import React from 'react';
 import {render} from 'react-dom';
@@ -11,6 +10,7 @@ import {Provider} from 'react-redux';
 
 import App from './components/App.jsx';
 import home from './components/Home';
+import about from './components/About';
 import {MailingsManagerContainer} from './components/Mailing';
 import {MailingComposerContainer} from './components/Mailing';
 
@@ -23,6 +23,7 @@ render(<Provider store={store}>
       <IndexRoute component={home} />
       <Route path='mailings' component={MailingsManagerContainer} />
       <Route path='mailings/:uuid' component={MailingComposerContainer} />
+      <Route path='about' component={about} />
 
 
     </Route>
