@@ -6,12 +6,10 @@ const App = (props) => {
   return (
     <div>
 
-      <nav className="navbar navbar-inverse">
+      <nav className="navbar navbar-inverse navbar-static-top">
         <div className="container-fluid">
           <div className="navbar-header">
-            <a className="navbar-brand" href="#">
-              <Link to='/'>{name}</Link>
-            </a>
+            <span className="navbar-brand">{name}</span>
             <ul className='nav navbar-nav'>
               <li><Link activeClassName='active' to='/'>Home</Link></li>
               <li><Link activeClassName='active' to='mailings'>Mailings</Link></li>
