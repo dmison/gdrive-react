@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server --inline --hot",
-    "build": "webpack; rm -f dist; cp -rfv app/ dist/; rm app/index.js",
-    "clean": "rm -rf dist app/index.js"
+    "start": "webpack-dev-server --config=webpack.dev.config.js --inline --hot",
+    "build": "npm run clean; cross-env NODE_ENV=production webpack -p --progress --colors --config webpack.prod.config.js; cp -rfv app/ dist/",
+    "clean": "rm -rfv dist app/*woff* app/*ttf app/*svg app/*eot app/index.js* app/styles.css"
   },
   "author": "",
   "license": "ISC",
@@ -18,14 +18,17 @@
     "babel-preset-react": "^6.16.0",
     "babel-preset-react-hmre": "^1.1.1",
     "babel-preset-stage-0": "^6.16.0",
+    "cross-env": "^3.1.4",
     "css-loader": "^0.26.1",
     "eslint": "^3.10.2",
     "eslint-plugin-react": "^6.7.1",
-    "file-loader": "^0.9.0",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^0.10.0",
     "json-loader": "^0.5.4",
-    "style-loader": "^0.13.1",
+    "less": "^2.7.2",
+    "less-loader": "^2.2.3",
     "url-loader": "^0.5.7",
-    "webpack": "^1.13.3",
+    "webpack": "^1.14.0",
     "webpack-dev-server": "^1.16.2"
   },
   "dependencies": {
@@ -36,8 +39,8 @@
     "index-template": "^1.1.1",
     "lodash": "^4.17.2",
     "node-uuid": "^1.4.7",
-    "react": "^15.4.1",
-    "react-dom": "^15.4.1",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
     "react-redux": "^4.4.6",
     "react-router": "^3.0.0",
     "redux": "^3.6.0"
