@@ -12,7 +12,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, '/app/'),
     filename: '[name]',
-    publicPath: '/'
+    publicPath: './'
   },
 
   resolve: {
