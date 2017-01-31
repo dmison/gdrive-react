@@ -6,4 +6,6 @@ devConfig.devServer = {
   contentBase: './app'
 };
 
+devConfig.output.publicPath = '/';
+
 module.exports = devConfig;
