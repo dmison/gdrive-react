@@ -1,8 +1,9 @@
 import content_reducer from './reducer.js';
 import ContentManager from './ContentManager.jsx';
-import {  updateContentPosition,
-          addCommonContent,
+import {  addCommonContent,
           updateCommonContentText,
+          addPerRecipientContent,
+          updatePerRecipientContent,
           delContent,
           moveContent
         } from './actions.js';
@@ -10,9 +11,10 @@ import {  updateContentPosition,
 export {
   content_reducer,
   ContentManager,
-  updateContentPosition,
   addCommonContent,
   updateCommonContentText,
+  addPerRecipientContent,
+  updatePerRecipientContent,
   delContent,
   moveContent
 };

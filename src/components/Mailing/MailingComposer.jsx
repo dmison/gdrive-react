@@ -7,7 +7,7 @@ const MailingComposer = (props) => {
   if (props.mailing === null){
     return <div>No mailing with UUID {props.uuid}.</div>;
   }
-
+  console.log(props.updatePerRecipientContent);
   return (
     <div>
       <h4>{props.mailing.name}</h4>
@@ -15,10 +15,13 @@ const MailingComposer = (props) => {
       <ContentManager
         mailing={props.mailing.id}
         content={props.content}
+        recipients={props.recipients}
         delContent={ (content)=>{props.delContent(content);} }
         moveContent={ (content, direction)=>{props.moveContent(content, direction);} }
         addCommonContent={()=>{props.addCommonContent(props.uuid);} }
+        addPerRecipientContent={()=>{props.addPerRecipientContent(props.uuid, props.recipients.map((r)=>{return r.id;}));} }
         updateCommonContentText={(mailing, content, editorState)=>{ props.updateCommonContentText(mailing, content, editorState); } }
+        updatePerRecipientContent={(content, editorContent, recipient)=>{props.updatePerRecipientContent(content, editorContent, recipient); } }
         />
     </div>
   );
@@ -31,8 +34,9 @@ MailingComposer.propTypes = {
   content: React.PropTypes.array,
   addRecipient: React.PropTypes.func,
   delRecipient: React.PropTypes.func,
-  updateContentPosition: React.PropTypes.func,
   addCommonContent: React.PropTypes.func,
+  addPerRecipientContent: React.PropTypes.func,
+  updatePerRecipientContent: React.PropTypes.func,
   updateCommonContentText: React.PropTypes.func,
   delContent: React.PropTypes.func,
   moveContent: React.PropTypes.func

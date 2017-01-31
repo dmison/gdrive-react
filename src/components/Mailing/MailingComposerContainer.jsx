@@ -3,6 +3,8 @@ import MailingComposer from './MailingComposer';
 
 import {  addCommonContent,
           updateCommonContentText,
+          addPerRecipientContent,
+          updatePerRecipientContent,
           delContent,
           moveContent} from '../Content';
 
@@ -26,6 +28,8 @@ const mapDispatchToProps = (dispatch) => {
     addCommonContent: (mailing) => { dispatch(addCommonContent(mailing)); },
     updateCommonContentText: (content, editorContent) => { dispatch(updateCommonContentText(content, editorContent)); },
 
+    addPerRecipientContent: (mailing, recipients) => { dispatch(addPerRecipientContent(mailing, recipients)); },
+    updatePerRecipientContent: (content, editorContent, recipient) => { dispatch(updatePerRecipientContent(content, editorContent, recipient)); },
 
     moveContent: (content, direction) => { dispatch(moveContent(content, direction)); },
     delContent: (content) => { dispatch(delContent(content)); }

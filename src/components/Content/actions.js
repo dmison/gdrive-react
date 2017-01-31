@@ -1,3 +1,21 @@
+const updatePerRecipientContent = (content, editorContent, recipient) => {
+  // console.log(`editorContent: ${editorContent}`);
+  return {
+    type: 'UPDATE_PER_RECIPIENT_CONTENT',
+    content: content,
+    recipient: recipient,
+    editorContent: editorContent
+  };
+};
+
+const addPerRecipientContent = (mailing, recipients) => {
+  return {
+    type: 'ADD_PER_RECIPIENT_CONTENT',
+    mailing: mailing,
+    recipients: recipients
+  };
+};
+
 const addCommonContent = (mailing) => {
   return {
     type: 'ADD_COMMON_CONTENT',
@@ -10,15 +28,6 @@ const updateCommonContentText = (content, editorContent) => {
     type: 'UPDATE_COMMON_CONTENT_TEXT',
     editorContent: editorContent,
     content: content
-  };
-};
-
-const updateContentPosition = (mailing, content, index) => {
-  return {
-    type: 'UPDATE_CONTENT_POSITION',
-    mailing: mailing,
-    content: content,
-    index: index
   };
 };
 
@@ -38,9 +47,10 @@ const moveContent = (content, direction) => {
 };
 
 export {
-  updateContentPosition,
   addCommonContent,
   updateCommonContentText,
   delContent,
-  moveContent
+  moveContent,
+  addPerRecipientContent,
+  updatePerRecipientContent
 };
