@@ -29,13 +29,6 @@ const ContentEditorToolBar = (props) => {
   return (
     <div className="toolbar" >
         <div className='btn-group' style={buttonBlockStyle}>
-          <a className='btn btn-danger btn-sm' onClick={props._delete}><i className='fa fa-trash' title='Delete this content (unrecoverable).'/></a>
-        </div>
-        <div className='btn-group' style={buttonBlockStyle}>
-          <a className='btn btn-default btn-sm' onClick={props._moveUp}><i className='fa fa-chevron-up' title='Move content block up.'/></a>
-          <a className='btn btn-default btn-sm' onClick={props._moveDown}><i className='fa fa-chevron-down' title='Move content block down.'/></a>
-        </div>
-        <div className='btn-group' style={buttonBlockStyle}>
           {INLINE_STYLES.map((style, index)=>{
             return <ContentEditorToolBarButton key={index}  type={style} active={props.currentInlineStyle.has(style.style)} _toggleEffect={props._toggleInlineStyle} />;
           })}
@@ -45,21 +38,16 @@ const ContentEditorToolBar = (props) => {
             return <ContentEditorToolBarButton key={index} active={type.style===props.currentBlockType} type={type} _toggleEffect={props._toggleBlockType} />;
           })}
       </div>
-      <span style={{float: 'right', margin: 0, padding: 7}} className='label label-default'>{props.type}</span>
   </div>
 
   );
 };
 
 ContentEditorToolBar.propTypes = {
-  type: React.PropTypes.string,
   currentInlineStyle: React.PropTypes.object,
   currentBlockType: React.PropTypes.string,
   _toggleBlockType: React.PropTypes.func,
   _toggleInlineStyle: React.PropTypes.func,
-  _delete: React.PropTypes.func,
-  _moveUp: React.PropTypes.func,
-  _moveDown: React.PropTypes.func,
 };
 
 

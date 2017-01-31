@@ -1,6 +1,7 @@
 import React from 'react';
 import {Editor, EditorState, RichUtils, convertToRaw, convertFromRaw} from 'draft-js';
 import ContentEditorToolBar from './ContentEditorToolBar.jsx';
+import ContentControlBar from './ContentControlBar.jsx';
 
 class PerRecipientContentEditor extends React.Component {
   constructor(props){
@@ -67,34 +68,36 @@ class PerRecipientContentEditor extends React.Component {
     return (
       <div className='panel panel-default'>
         <div className='panel-heading' style={{padding:3}}>
-          <ContentEditorToolBar
-            type={this.props.content.type}
-            currentInlineStyle={currentInlineStyle}
-            currentBlockType={currentBlockType}
-            _toggleBlockType={(type)=>{ this._toggleBlockType(type); }}
-            _toggleInlineStyle={(style)=>{ this._toggleInlineStyle(style); }}
+          <ContentControlBar
             _moveUp={()=>{ this.props.moveContent('up'); }}
             _moveDown={()=>{ this.props.moveContent('down'); }}
             _delete={()=>{
               if(window.confirm('Deleting content is unrecoverable.  Are you sure?')){
                 this.props.delete(this.props.content.id);
               }
-            }}
-            />
+            }}>
+            <select value={this.state.selectedRecipient} className='label label-default' style={{float: 'right', margin: 0, padding: 5, align:'right'}} onChange={(event)=>{
+              this.setState({selectedRecipient: event.target.value});
+              this.setState({selectedEditorState: EditorState.createWithContent(convertFromRaw(this.props.content.editorContent.find((ec)=>{
+                return ec.recipient === event.target.value;
+              }).editorContent))});
+            }}>
+              {this.props.content.editorContent.map((ec, index)=>{
+                const rdetails = this._recipientDetails(ec.recipient);
+                return <option key={index} value={ec.recipient}>Content for: {rdetails.name} {rdetails.email}</option>;
+              })}
+            </select>
+
+          </ContentControlBar>
 
         </div>
         <div className='panel-body'>
-          <select value={this.state.selectedRecipient} onChange={(event)=>{
-            this.setState({selectedRecipient: event.target.value});
-            this.setState({selectedEditorState: EditorState.createWithContent(convertFromRaw(this.props.content.editorContent.find((ec)=>{
-              return ec.recipient === event.target.value;
-            }).editorContent))});
-          }}>
-            {this.props.content.editorContent.map((ec, index)=>{
-              const rdetails = this._recipientDetails(ec.recipient);
-              return <option key={index} value={ec.recipient}>{rdetails.name} {rdetails.email}</option>;
-            })}
-          </select>
+          <ContentEditorToolBar
+            currentInlineStyle={currentInlineStyle}
+            currentBlockType={currentBlockType}
+            _toggleBlockType={(type)=>{ this._toggleBlockType(type); }}
+            _toggleInlineStyle={(style)=>{ this._toggleInlineStyle(style); }} />
+
           {typeof thisRecipient !== 'undefined'?<Editor
             ref={(input)=>{ this.editor = input; }}
             editorState={this.state.selectedEditorState}
@@ -117,6 +120,7 @@ class PerRecipientContentEditor extends React.Component {
 
 PerRecipientContentEditor.propTypes = {
   content: React.PropTypes.object,
+  children: React.PropTypes.object,
   recipients: React.PropTypes.array,
   save: React.PropTypes.func,
   delete: React.PropTypes.func,

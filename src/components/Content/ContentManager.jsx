@@ -14,14 +14,13 @@ const ContentManager = (props) => {
           let Editor = '';
           switch(content.type){
           case 'common':
-            Editor = <CommonContentEditor
+            Editor = (<CommonContentEditor
               content={content}
               delete={()=>{props.delContent(content.id);} }
               moveContent={(direction)=>{ props.moveContent(content.id, direction); } }
               save={(editorContent)=>{
                 props.updateCommonContentText(content.id, editorContent);
-              }}
-              />;
+              }}><span style={{float: 'right', margin: 0, padding: 7}} className='label label-default'>{content.type}</span></CommonContentEditor>);
             break;
           case 'per_recipient':
             Editor = <PerRecipientContentEditor
@@ -31,8 +30,7 @@ const ContentManager = (props) => {
               moveContent={(direction)=>{ props.moveContent(content.id, direction); } }
               save={(editorContent, recipient)=>{
                 props.updatePerRecipientContent(content.id, editorContent, recipient);
-              }}
-              />;
+              }}></PerRecipientContentEditor>;
             break;
           default: '';
           }

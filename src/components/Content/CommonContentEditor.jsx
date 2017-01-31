@@ -1,6 +1,7 @@
 import React from 'react';
 import {Editor, EditorState, RichUtils, convertToRaw, convertFromRaw} from 'draft-js';
 import ContentEditorToolBar from './ContentEditorToolBar.jsx';
+import ContentControlBar from './ContentControlBar.jsx';
 
 class CommonContentEditor extends React.Component {
   constructor(props){
@@ -53,29 +54,29 @@ class CommonContentEditor extends React.Component {
     return (
       <div className='panel panel-default'>
         <div className='panel-heading' style={{padding:3}}>
-          <ContentEditorToolBar
-            type={this.props.content.type}
-            currentInlineStyle={currentInlineStyle}
-            currentBlockType={currentBlockType}
-            _toggleBlockType={(type)=>{ this._toggleBlockType(type); }}
-            _toggleInlineStyle={(style)=>{ this._toggleInlineStyle(style); }}
+          <ContentControlBar
             _moveUp={()=>{ this.props.moveContent('up'); }}
             _moveDown={()=>{ this.props.moveContent('down'); }}
             _delete={()=>{
               if(window.confirm('Deleting content is unrecoverable.  Are you sure?')){
                 this.props.delete(this.props.content.id);
               }
-            }}
-            />
+            }}>{this.props.children}</ContentControlBar>
         </div>
-        <div className='panel-body'>
+        <div className='panel-body' style={{padding: 0}}>
+          <ContentEditorToolBar
+            currentInlineStyle={currentInlineStyle}
+            currentBlockType={currentBlockType}
+            _toggleBlockType={(type)=>{ this._toggleBlockType(type); }}
+            _toggleInlineStyle={(style)=>{ this._toggleInlineStyle(style); }} />
+          <div style={{padding: 14}}>
           <Editor
             ref={(input)=>{ this.editor = input; }}
             editorState={this.state.editorState}
             onChange={this._onChange}
             handleKeyCommand={this._handleKeyCommand}
             placeholder='Put content here that will go to all recipients.'/>
-
+</div>
         </div>
       </div>
     );
@@ -83,6 +84,7 @@ class CommonContentEditor extends React.Component {
 }
 
 CommonContentEditor.propTypes = {
+  children: React.PropTypes.object,
   content: React.PropTypes.object,
   save: React.PropTypes.func,
   delete: React.PropTypes.func,
