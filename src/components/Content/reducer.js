@@ -5,6 +5,17 @@ import {EditorState, convertToRaw} from 'draft-js';
 const content_reducer = (content = [], action) => {
   switch(action.type){
 
+  case 'ADD_RECIPIENT':
+    return content.map((c)=>{
+      if(c.mailing === action.mailing && c.type === 'per_recipient'){
+        c.editorContent = c.editorContent.concat({
+          recipient: action.newID,
+          editorContent: convertToRaw(EditorState.createEmpty().getCurrentContent())
+        });
+      }
+      return c;
+    });
+
   case 'ADD_COMMON_CONTENT':
     return content.concat({
       id: uuid.v1(),

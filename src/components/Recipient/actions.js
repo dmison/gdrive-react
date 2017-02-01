@@ -1,9 +1,12 @@
+import uuid from 'node-uuid';
+
 const addRecipient = (mailing, name, email) => {
   return {
     type: 'ADD_RECIPIENT',
     mailing: mailing,
     name: name,
-    email: email
+    email: email,
+    newID: uuid.v1()
   };
 };
 
