@@ -5,6 +5,9 @@ import {  addCommonContent,
           updateCommonContentText,
           addPerRecipientContent,
           updatePerRecipientContent,
+          addGroupContent,
+          updateGroupContentText,
+          updateGroupContentRecipients,
           delContent,
           moveContent} from '../Content';
 
@@ -30,6 +33,10 @@ const mapDispatchToProps = (dispatch) => {
 
     addPerRecipientContent: (mailing, recipients) => { dispatch(addPerRecipientContent(mailing, recipients)); },
     updatePerRecipientContent: (content, editorContent, recipient) => { dispatch(updatePerRecipientContent(content, editorContent, recipient)); },
+
+    addGroupContent: (mailing) => { dispatch(addGroupContent(mailing)); },
+    updateGroupContentText: (content, editorContent) => { dispatch(updateGroupContentText(content, editorContent)); },
+    updateGroupContentRecipients: (content, recipients) => { dispatch(updateGroupContentRecipients(content, recipients)); },
 
     moveContent: (content, direction) => { dispatch(moveContent(content, direction)); },
     delContent: (content) => { dispatch(delContent(content)); }

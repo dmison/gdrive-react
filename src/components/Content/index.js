@@ -5,7 +5,10 @@ import {  addCommonContent,
           addPerRecipientContent,
           updatePerRecipientContent,
           delContent,
-          moveContent
+          moveContent,
+          addGroupContent,
+          updateGroupContentText,
+          updateGroupContentRecipients
         } from './actions.js';
 
 export {
@@ -16,5 +19,8 @@ export {
   addPerRecipientContent,
   updatePerRecipientContent,
   delContent,
-  moveContent
+  moveContent,
+  addGroupContent,
+  updateGroupContentText,
+  updateGroupContentRecipients
 };

@@ -59,6 +59,33 @@ const content_reducer = (content = [], action) => {
       return c;
     });
 
+  // group content
+  case 'ADD_GROUP_CONTENT':
+    return content.concat({
+      id:uuid.v1(),
+      type: 'group',
+      mailing: action.mailing,
+      recipients: [],
+      editorContent: convertToRaw(EditorState.createEmpty().getCurrentContent())
+    });
+
+  case 'UPDATE_GROUP_CONTENT_TEXT':
+    return content.map((c)=>{
+      if(c.id === content){
+        c.editorContent = action.editorContent;
+      }
+      return c;
+    });
+
+  case 'UPDATE_GROUP_CONTENT_RECIPIENTS':
+    return content.map((c)=>{
+      if(c.id === content){
+        c.recipients = action.recipients;
+      }
+      return c;
+    });
+
+  // common content
   case 'DEL_CONTENT':
     return content.filter((c)=>{
       return c.id !== action.content;

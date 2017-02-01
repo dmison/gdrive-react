@@ -22,6 +22,29 @@ const addCommonContent = (mailing) => {
   };
 };
 
+const addGroupContent = (mailing) => {
+  return {
+    type: 'ADD_GROUP_CONTENT',
+    mailing: mailing
+  };
+};
+
+const updateGroupContentText = (content, editorContent) => {
+  return {
+    type: 'UPDATE_GROUP_CONTENT_TEXT',
+    editorContent: editorContent,
+    content: content
+  };
+};
+
+const updateGroupContentRecipients = (content, recipients) => {
+  return {
+    type: 'UPDATE_GROUP_CONTENT_RECIPIENTS',
+    recipients: recipients,
+    content: content
+  };
+};
+
 const updateCommonContentText = (content, editorContent) => {
   return {
     type: 'UPDATE_COMMON_CONTENT_TEXT',
@@ -51,5 +74,8 @@ export {
   delContent,
   moveContent,
   addPerRecipientContent,
-  updatePerRecipientContent
+  updatePerRecipientContent,
+  addGroupContent,
+  updateGroupContentText,
+  updateGroupContentRecipients
 };

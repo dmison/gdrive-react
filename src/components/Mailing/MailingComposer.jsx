@@ -7,7 +7,7 @@ const MailingComposer = (props) => {
   if (props.mailing === null){
     return <div>No mailing with UUID {props.uuid}.</div>;
   }
-  
+
   return (
     <div>
       <h4>{props.mailing.name}</h4>
@@ -22,6 +22,9 @@ const MailingComposer = (props) => {
         addPerRecipientContent={()=>{props.addPerRecipientContent(props.uuid, props.recipients.map((r)=>{return r.id;}));} }
         updateCommonContentText={(mailing, content, editorState)=>{ props.updateCommonContentText(mailing, content, editorState); } }
         updatePerRecipientContent={(content, editorContent, recipient)=>{props.updatePerRecipientContent(content, editorContent, recipient); } }
+        addGroupContent={ ()=>{ props.addGroupContent(props.uuid); } }
+        updateGroupContentText={ ()=>{} }
+        updateGroupContentRecipients={ ()=>{} }
         />
     </div>
   );
@@ -38,6 +41,9 @@ MailingComposer.propTypes = {
   addPerRecipientContent: React.PropTypes.func,
   updatePerRecipientContent: React.PropTypes.func,
   updateCommonContentText: React.PropTypes.func,
+  addGroupContent: React.PropTypes.func,
+  updateGroupContentText: React.PropTypes.func,
+  updateGroupContentRecipients: React.PropTypes.func,
   delContent: React.PropTypes.func,
   moveContent: React.PropTypes.func
 };
