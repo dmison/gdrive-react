@@ -4,6 +4,12 @@ const buttonBlockStyle = {
   paddingRight: 10
 };
 
+const toolbarStyle = {
+  padding: 3,
+  backgroundColor:'#f5f5f5',
+  borderBottom: 'solid 1px lightgrey'
+};
+
 const INLINE_STYLES = [
   {label: 'Bold', style: 'BOLD', icon: 'bold'},
   {label: 'Italic', style: 'ITALIC', icon: 'italic'},
@@ -27,7 +33,7 @@ const BLOCK_TYPES = [
 const ContentEditorToolBar = (props) => {
 
   return (
-    <div className="toolbar" >
+    <div className="toolbar" style={toolbarStyle}>
         <div className='btn-group' style={buttonBlockStyle}>
           {INLINE_STYLES.map((style, index)=>{
             return <ContentEditorToolBarButton key={index}  type={style} active={props.currentInlineStyle.has(style.style)} _toggleEffect={props._toggleInlineStyle} />;

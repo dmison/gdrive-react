@@ -1,5 +1,4 @@
 const updatePerRecipientContent = (content, editorContent, recipient) => {
-  // console.log(`editorContent: ${editorContent}`);
   return {
     type: 'UPDATE_PER_RECIPIENT_CONTENT',
     content: content,

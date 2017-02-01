@@ -91,20 +91,20 @@ class PerRecipientContentEditor extends React.Component {
           </ContentControlBar>
 
         </div>
-        <div className='panel-body'>
+        <div className='panel-body' style={{padding:0}}>
           <ContentEditorToolBar
             currentInlineStyle={currentInlineStyle}
             currentBlockType={currentBlockType}
             _toggleBlockType={(type)=>{ this._toggleBlockType(type); }}
             _toggleInlineStyle={(style)=>{ this._toggleInlineStyle(style); }} />
-
+          <div style={{padding:14}}>
           {typeof thisRecipient !== 'undefined'?<Editor
             ref={(input)=>{ this.editor = input; }}
             editorState={this.state.selectedEditorState}
             onChange={this._onChange}
             handleKeyCommand={this._handleKeyCommand}
             placeholder={`Put content here that will go to ${thisRecipient.name} <${thisRecipient.email}>`} />:''}
-
+          </div>
         </div>
       </div>
     );

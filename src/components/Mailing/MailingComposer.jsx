@@ -7,7 +7,7 @@ const MailingComposer = (props) => {
   if (props.mailing === null){
     return <div>No mailing with UUID {props.uuid}.</div>;
   }
-  console.log(props.updatePerRecipientContent);
+  
   return (
     <div>
       <h4>{props.mailing.name}</h4>
