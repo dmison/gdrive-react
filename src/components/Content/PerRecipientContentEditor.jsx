@@ -2,7 +2,6 @@ import React from 'react';
 import {Editor, EditorState, RichUtils, convertToRaw, convertFromRaw} from 'draft-js';
 import ContentEditorToolBar from './ContentEditorToolBar.jsx';
 import Select from 'react-select';
-require ('react-select/less/select.less');
 
 class PerRecipientContentEditor extends React.Component {
   constructor(props){

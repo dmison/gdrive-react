@@ -2,6 +2,7 @@
 
 require('font-awesome/css/font-awesome.css');
 require('./bootstrap/bootstrap.less');
+require ('./react-select-less/select.less');
 
 import React from 'react';
 import {render} from 'react-dom';
