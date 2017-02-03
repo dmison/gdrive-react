@@ -16,6 +16,16 @@ const content_reducer = (content = [], action) => {
       return c;
     });
 
+  case 'DEL_RECIPIENT':
+    return content.map((c)=>{
+      if(c.mailing === action.mailing && c.type === 'per_recipient'){
+        c.editorContent = c.editorContent.filter((ec)=>{
+          return ec.recipient !== action.recipient;
+        });
+      }
+      return c;
+    });
+
   case 'ADD_COMMON_CONTENT':
     return content.concat({
       id: uuid.v1(),
