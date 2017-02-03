@@ -23,8 +23,8 @@ const MailingComposer = (props) => {
         updateCommonContentText={(mailing, content, editorState)=>{ props.updateCommonContentText(mailing, content, editorState); } }
         updatePerRecipientContent={(content, editorContent, recipient)=>{props.updatePerRecipientContent(content, editorContent, recipient); } }
         addGroupContent={ ()=>{ props.addGroupContent(props.uuid); } }
-        updateGroupContentText={ ()=>{} }
-        updateGroupContentRecipients={ ()=>{} }
+        updateGroupContentText={ (content, editorContent)=>{ props.updateGroupContentText(content, editorContent); } }
+        updateGroupContentRecipients={ (content, recipients)=>{ props.updateGroupContentRecipients(content, recipients); } }
         />
     </div>
   );

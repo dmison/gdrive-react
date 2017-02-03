@@ -43,6 +43,7 @@ const ContentManager = (props) => {
               recipients={props.recipients}
               delete={()=>{props.delContent(content.id);} }
               moveContent={(direction)=>{ props.moveContent(content.id, direction); } }
+              updateRecipients={(recipients)=>{ props.updateGroupContentRecipients(content.id, recipients); } }
               save={(editorContent)=>{
                 props.updateGroupContentText(content.id, editorContent);
               }}></GroupContentEditor>;

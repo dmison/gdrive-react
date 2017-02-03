@@ -1,6 +1,7 @@
 import React from 'react';
 import {Editor, EditorState, RichUtils, convertToRaw, convertFromRaw} from 'draft-js';
 import ContentEditorToolBar from './ContentEditorToolBar.jsx';
+import Select from 'react-select';
 
 class GroupContentEditor extends React.Component {
   constructor(props){
@@ -51,7 +52,6 @@ class GroupContentEditor extends React.Component {
     const currentInlineStyle = this.state.editorState.getCurrentInlineStyle();
     const currentBlockType = this.state.editorState.getCurrentContent().getBlockForKey(this.state.editorState.getSelection().getStartKey()).getType();
 
-
     return (
       <div className='panel panel-default'>
         <div className='panel-heading' style={{padding:3}}>
@@ -66,30 +66,33 @@ class GroupContentEditor extends React.Component {
               if(window.confirm('Deleting content is unrecoverable.  Are you sure?')){
                 this.props.delete(this.props.content.id);
               }
-            }}>
+            }} />
 
-            <select className='label label-default' style={{float: 'right', margin: 0, padding: 5, align:'right'}} onChange={()=>{
-              // this.setState({selectedRecipient: event.target.value});
-              // this.setState({selectedEditorState: EditorState.createWithContent(convertFromRaw(this.props.content.editorContent.find((ec)=>{
-              //   return ec.recipient === event.target.value;
-              // }).editorContent))});
-            }}>
-              {this.props.recipients.map((r, index)=>{
-                return <option key={index} value={r.id}>{r.name} {r.email}</option>;
+            <Select
+              style={{marginTop: 3}}
+              name='select-recipient'
+              clearable={true}
+              multi={true}
+              delimited=','
+              value={this.props.content.recipients.join(',')}
+              options={this.props.recipients.map((r)=>{
+                return {value:r.id, label: `${r.name} ${r.email}`, clearableValue:true};
               })}
-            </select>
+              onChange={(value)=>{
+                this.props.updateRecipients( value.map((r)=>{ return r.value; }) );
+              } }
+          />
 
-          </ContentEditorToolBar>
         </div>
         <div className='panel-body' style={{padding: 0}}>
           <div style={{padding: 14}}>
-          <Editor
-            ref={(input)=>{ this.editor = input; }}
-            editorState={this.state.editorState}
-            onChange={this._onChange}
-            handleKeyCommand={this._handleKeyCommand}
-            placeholder='Put content here that will go to all selected recipients.'/>
-</div>
+            <Editor
+              ref={(input)=>{ this.editor = input; }}
+              editorState={this.state.editorState}
+              onChange={this._onChange}
+              handleKeyCommand={this._handleKeyCommand}
+              placeholder='Put content here that will go to all selected recipients.'/>
+          </div>
         </div>
       </div>
     );
@@ -108,6 +111,7 @@ GroupContentEditor.propTypes = {
   recipients: React.PropTypes.array,
   content: React.PropTypes.object,
   save: React.PropTypes.func,
+  updateRecipients: React.PropTypes.func,
   delete: React.PropTypes.func,
   moveContent: React.PropTypes.func
 };
