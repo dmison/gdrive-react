@@ -91,7 +91,6 @@ class PerRecipientContentEditor extends React.Component {
                 clearable={false}
                 value={this.state.selectedRecipient}
                 options={this.props.content.editorContent.map((ec)=>{
-                  console.log(ec);
                   const rdetails = this._recipientDetails(ec.recipient);
                   return {value:ec.recipient, label: `${rdetails.name} ${rdetails.email}`};
                 })}
