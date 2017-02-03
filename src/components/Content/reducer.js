@@ -81,7 +81,7 @@ const content_reducer = (content = [], action) => {
 
   case 'UPDATE_GROUP_CONTENT_TEXT':
     return content.map((c)=>{
-      if(c.id === content){
+      if(c.id === action.content){
         c.editorContent = action.editorContent;
       }
       return c;
@@ -89,7 +89,7 @@ const content_reducer = (content = [], action) => {
 
   case 'UPDATE_GROUP_CONTENT_RECIPIENTS':
     return content.map((c)=>{
-      if(c.id === content){
+      if(c.id === action.content){
         c.recipients = action.recipients;
       }
       return c;
