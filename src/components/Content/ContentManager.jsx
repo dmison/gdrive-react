@@ -25,7 +25,7 @@ const ContentManager = (props) => {
               moveContent={(direction)=>{ props.moveContent(content.id, direction); } }
               save={(editorContent)=>{
                 props.updateCommonContentText(content.id, editorContent);
-              }}><span style={{float: 'right', margin: 0, padding: 7}} className='label label-default'>{content.type}</span></CommonContentEditor>);
+              }}><span>{content.type}</span></CommonContentEditor>);
             break;
           case 'per_recipient':
             Editor = <PerRecipientContentEditor

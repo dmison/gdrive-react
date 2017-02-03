@@ -4,12 +4,6 @@ const buttonBlockStyle = {
   paddingRight: 10
 };
 
-const toolbarStyle = {
-  padding: 3,
-  backgroundColor:'#f5f5f5',
-  borderBottom: 'solid 1px lightgrey'
-};
-
 const INLINE_STYLES = [
   {label: 'Bold', style: 'BOLD', icon: 'bold'},
   {label: 'Italic', style: 'ITALIC', icon: 'italic'},
@@ -33,7 +27,12 @@ const BLOCK_TYPES = [
 const ContentEditorToolBar = (props) => {
 
   return (
-    <div className="toolbar" style={toolbarStyle}>
+    <div className="toolbar" >
+      <div className='btn-group' style={buttonBlockStyle}>
+        <a className='btn btn-default btn-sm' onClick={props._moveUp}><i className='fa fa-chevron-up' title='Move content block up.'/></a>
+        <a className='btn btn-default btn-sm' onClick={props._moveDown}><i className='fa fa-chevron-down' title='Move content block down.'/></a>
+      </div>
+
         <div className='btn-group' style={buttonBlockStyle}>
           {INLINE_STYLES.map((style, index)=>{
             return <ContentEditorToolBarButton key={index}  type={style} active={props.currentInlineStyle.has(style.style)} _toggleEffect={props._toggleInlineStyle} />;
@@ -44,18 +43,28 @@ const ContentEditorToolBar = (props) => {
             return <ContentEditorToolBarButton key={index} active={type.style===props.currentBlockType} type={type} _toggleEffect={props._toggleBlockType} />;
           })}
       </div>
-  </div>
+
+      <div className='btn-group' style={{float:'right'}}>
+        <a className='btn btn-danger btn-sm' onClick={props._delete}><i className='fa fa-trash' title='Delete this content (unrecoverable).'/></a>
+      </div>
+
+
+
+      </div>
 
   );
 };
 
 ContentEditorToolBar.propTypes = {
+  children: React.PropTypes.node,
   currentInlineStyle: React.PropTypes.object,
   currentBlockType: React.PropTypes.string,
   _toggleBlockType: React.PropTypes.func,
   _toggleInlineStyle: React.PropTypes.func,
+  _delete: React.PropTypes.func,
+  _moveUp: React.PropTypes.func,
+  _moveDown: React.PropTypes.func,
 };
-
 
 const ContentEditorToolBarButton = (props) => {
   const active = props.active? ' active':'';
@@ -71,5 +80,6 @@ ContentEditorToolBarButton.propTypes = {
   type: React.PropTypes.object,
   active: React.PropTypes.bool
 };
+
 
 export default ContentEditorToolBar;

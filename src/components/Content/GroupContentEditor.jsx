@@ -1,7 +1,6 @@
 import React from 'react';
 import {Editor, EditorState, RichUtils, convertToRaw, convertFromRaw} from 'draft-js';
 import ContentEditorToolBar from './ContentEditorToolBar.jsx';
-import ContentControlBar from './ContentControlBar.jsx';
 
 class GroupContentEditor extends React.Component {
   constructor(props){
@@ -56,7 +55,11 @@ class GroupContentEditor extends React.Component {
     return (
       <div className='panel panel-default'>
         <div className='panel-heading' style={{padding:3}}>
-          <ContentControlBar
+          <ContentEditorToolBar
+            currentInlineStyle={currentInlineStyle}
+            currentBlockType={currentBlockType}
+            _toggleBlockType={(type)=>{ this._toggleBlockType(type); }}
+            _toggleInlineStyle={(style)=>{ this._toggleInlineStyle(style); }}
             _moveUp={()=>{ this.props.moveContent('up'); }}
             _moveDown={()=>{ this.props.moveContent('down'); }}
             _delete={()=>{
@@ -76,14 +79,9 @@ class GroupContentEditor extends React.Component {
               })}
             </select>
 
-          </ContentControlBar>
+          </ContentEditorToolBar>
         </div>
         <div className='panel-body' style={{padding: 0}}>
-          <ContentEditorToolBar
-            currentInlineStyle={currentInlineStyle}
-            currentBlockType={currentBlockType}
-            _toggleBlockType={(type)=>{ this._toggleBlockType(type); }}
-            _toggleInlineStyle={(style)=>{ this._toggleInlineStyle(style); }} />
           <div style={{padding: 14}}>
           <Editor
             ref={(input)=>{ this.editor = input; }}
