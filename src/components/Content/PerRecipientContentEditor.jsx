@@ -81,33 +81,26 @@ class PerRecipientContentEditor extends React.Component {
                 this.props.delete(this.props.content.id);
               }
             }} />
+                <Select
+                  style={{marginTop:3}}
+                  name='select-recipient'
+                  clearable={false}
+                  value={this.state.selectedRecipient}
+                  options={this.props.content.editorContent.map((ec)=>{
+                    const rdetails = this._recipientDetails(ec.recipient);
+                    return {value:ec.recipient, label: `${rdetails.name} ${rdetails.email}`};
+                  })}
+                  onChange={(value)=>{
+                    if(!Array.isArray(value)){
+                      this.setState({selectedRecipient: value.value});
+                      this.setState({selectedEditorState: EditorState.createWithContent(convertFromRaw(this.props.content.editorContent.find((ec)=>{
+                        return ec.recipient === value.value;
+                      }).editorContent))});
+                    }
+                  }}
+              />
         </div>
         <div className='panel-body' style={{padding:0}}>
-          <div style={{backgroundColor: 'lightgrey', height: 45, padding: 3}}>
-            <div className='col-xs-2' style={{textAlign:'right', marginTop:7}}>Content for:</div>
-            <div className='col-xs-5'>
-              <Select
-                name='select-recipient'
-                clearable={false}
-                value={this.state.selectedRecipient}
-                options={this.props.content.editorContent.map((ec)=>{
-                  const rdetails = this._recipientDetails(ec.recipient);
-                  return {value:ec.recipient, label: `${rdetails.name} ${rdetails.email}`};
-                })}
-                onChange={(value)=>{
-                  if(!Array.isArray(value)){
-                    this.setState({selectedRecipient: value.value});
-                    this.setState({selectedEditorState: EditorState.createWithContent(convertFromRaw(this.props.content.editorContent.find((ec)=>{
-                      return ec.recipient === value.value;
-                    }).editorContent))});
-                  }
-                }}
-            />
-          </div>
-
-        </div>
-
-
           <div style={{padding:14}}>
           {typeof thisRecipient !== 'undefined'?<Editor
             ref={(input)=>{ this.editor = input; }}
