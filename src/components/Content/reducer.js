@@ -1,6 +1,7 @@
 import uuid from 'node-uuid';
 
 import {EditorState, convertToRaw} from 'draft-js';
+import decorator from '../Editor/decorator.js';
 
 const content_reducer = (content = [], action) => {
   switch(action.type){
@@ -10,7 +11,7 @@ const content_reducer = (content = [], action) => {
       if(c.mailing === action.mailing && c.type === 'per_recipient'){
         c.editorContent = c.editorContent.concat({
           recipient: action.newID,
-          editorContent: convertToRaw(EditorState.createEmpty().getCurrentContent())
+          editorContent: convertToRaw(EditorState.createEmpty(decorator).getCurrentContent())
         });
       }
       return c;
@@ -31,7 +32,7 @@ const content_reducer = (content = [], action) => {
       id: uuid.v1(),
       type: 'common',
       mailing: action.mailing,
-      editorContent: convertToRaw(EditorState.createEmpty().getCurrentContent())
+      editorContent: convertToRaw(EditorState.createEmpty(decorator).getCurrentContent())
     });
 
   case 'ADD_PER_RECIPIENT_CONTENT':
@@ -42,7 +43,7 @@ const content_reducer = (content = [], action) => {
       editorContent: action.recipients.map((r)=>{
         return {
           recipient: r,
-          editorContent: convertToRaw(EditorState.createEmpty().getCurrentContent())
+          editorContent: convertToRaw(EditorState.createEmpty(decorator).getCurrentContent())
         };
       })
     });
@@ -76,7 +77,7 @@ const content_reducer = (content = [], action) => {
       type: 'group',
       mailing: action.mailing,
       recipients: [],
-      editorContent: convertToRaw(EditorState.createEmpty().getCurrentContent())
+      editorContent: convertToRaw(EditorState.createEmpty(decorator).getCurrentContent())
     });
 
   case 'UPDATE_GROUP_CONTENT_TEXT':

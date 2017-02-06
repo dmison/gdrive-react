@@ -43,7 +43,12 @@ const ContentEditorToolBar = (props) => {
             return <ContentEditorToolBarButton key={index} active={type.style===props.currentBlockType} type={type} _toggleEffect={props._toggleBlockType} />;
           })}
       </div>
-
+      <div className='btn-group' style={buttonBlockStyle}>
+        <a className='btn btn-default btn-sm' onClick={()=>{
+          const url = prompt('URL');
+          props._setLink(url);
+        }}><i className='fa fa-link' title='Set Link.'/></a>
+      </div>
       <div className='btn-group' style={{float:'right'}}>
         <a className='btn btn-danger btn-sm' onClick={props._delete}><i className='fa fa-trash' title='Delete this content (unrecoverable).'/></a>
       </div>
@@ -64,6 +69,7 @@ ContentEditorToolBar.propTypes = {
   _delete: React.PropTypes.func,
   _moveUp: React.PropTypes.func,
   _moveDown: React.PropTypes.func,
+  _setLink: React.PropTypes.func
 };
 
 const ContentEditorToolBarButton = (props) => {
