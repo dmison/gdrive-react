@@ -1,9 +1,10 @@
 import React from 'react';
+require('./Link.less');
 
 const Link = (props) => {
   const {url} = props.contentState.getEntity(props.entityKey).getData();
   return (
-    <a href={url} style={{ color: '#3b5998', textDecoration: 'underline', }} title={url}>
+    <a className='editorLink' href={url} title={url}>
       {props.children}
     </a>
   );
