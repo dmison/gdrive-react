@@ -2,3 +2,9 @@ node_modules
 app/index.js
 app/styles.css
 dist
+
+app/*.woff2
+app/*.eot
+app/*.svg
+app/*.woff
+app/*.ttf
