@@ -1,5 +1,5 @@
 import React from 'react';
-require('./Link.less');
+import './Link.less';
 
 const Link = (props) => {
   const {url} = props.contentState.getEntity(props.entityKey).getData();
