@@ -1,8 +1,11 @@
 import React from 'react';
+import LinkEditor from '../Editor/LinkEditor.jsx';
 
 const buttonBlockStyle = {
   paddingRight: 10
 };
+
+
 
 const INLINE_STYLES = [
   {label: 'Bold', style: 'BOLD', icon: 'bold'},
@@ -43,11 +46,8 @@ const ContentEditorToolBar = (props) => {
             return <ContentEditorToolBarButton key={index} active={type.style===props.currentBlockType} type={type} _toggleEffect={props._toggleBlockType} />;
           })}
       </div>
-      <div className='btn-group' style={buttonBlockStyle}>
-        <a className='btn btn-default btn-sm' onClick={()=>{
-          const url = prompt('URL');
-          props._setLink(url);
-        }}><i className='fa fa-link' title='Set Link.'/></a>
+      <div className='btn-group' style={buttonBlockStyle} >
+        <LinkEditor editorState={props.editorState} _setLink={props._setLink} />
       </div>
       <div className='btn-group' style={{float:'right'}}>
         <a className='btn btn-danger btn-sm' onClick={props._delete}><i className='fa fa-trash' title='Delete this content (unrecoverable).'/></a>
@@ -61,6 +61,7 @@ const ContentEditorToolBar = (props) => {
 };
 
 ContentEditorToolBar.propTypes = {
+  editorState: React.PropTypes.object,
   children: React.PropTypes.node,
   currentInlineStyle: React.PropTypes.object,
   currentBlockType: React.PropTypes.string,

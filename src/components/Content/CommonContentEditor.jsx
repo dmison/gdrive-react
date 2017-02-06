@@ -71,6 +71,7 @@ class CommonContentEditor extends React.Component {
       <div className='panel panel-default'>
         <div className='panel-heading' style={{padding:3}}>
           <ContentEditorToolBar
+            editorState={this.state.editorState}
             currentInlineStyle={currentInlineStyle}
             currentBlockType={currentBlockType}
             _toggleBlockType={(type)=>{ this._toggleBlockType(type); }}
