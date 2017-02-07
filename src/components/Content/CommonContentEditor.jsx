@@ -16,6 +16,7 @@ class CommonContentEditor extends React.Component {
     this._toggleInlineStyle = this._toggleInlineStyle.bind(this);
 
     this._setLink = this._setLink.bind(this);
+    this._removeLink = this._removeLink.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -45,6 +46,13 @@ class CommonContentEditor extends React.Component {
   }
   _toggleBlockType(type){
     this._onChange(RichUtils.toggleBlockType(this.state.editorState, type));
+  }
+
+  _removeLink(){
+    const editorState = this.state.editorState;
+    const selection = editorState.getSelection();
+    const updatedEditorState = RichUtils.toggleLink(editorState, selection, null);
+    this.setState({editorState: updatedEditorState});
   }
 
   _setLink(url){
@@ -77,6 +85,7 @@ class CommonContentEditor extends React.Component {
             _toggleBlockType={(type)=>{ this._toggleBlockType(type); }}
             _toggleInlineStyle={(style)=>{ this._toggleInlineStyle(style); }}
             _setLink={this._setLink}
+            _removeLink={this._removeLink}
             _moveUp={()=>{ this.props.moveContent('up'); }}
             _moveDown={()=>{ this.props.moveContent('down'); }}
             _delete={()=>{

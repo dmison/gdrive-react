@@ -8,17 +8,23 @@ const LinkEditor = (props) => {
   const zeroSelection = noSelection(props.editorState);
 
   const addLink = (!zeroSelection && inOneBlock && entities.length === 0) ? (<a className='btn btn-default btn-sm' onClick={()=>{
-    const url = prompt('URL');
-    props._setLink(url);
-  }}><i className='fa fa-link' title='Set Link.'/></a>):'';
+    const url = prompt('URL to link to');
+    if(url !== '')props._setLink(url);
+  }}><i className='fa fa-link' title='Add Link'/></a>):'';
+
+  const editControl = (!zeroSelection && inOneBlock && entities.length === 1) ? (<span>
+    <a className='btn btn-default btn-xs' onClick={()=>{ props._removeLink(); }}><i className='fa fa-unlink' title='Remove Link'/></a>
+    <span>{entities[0].getData().url}</span>
+    <a className='btn btn-default btn-xs' onClick={()=>{
+      const url = prompt('URL to link to', entities[0].getData().url);
+      if(url !== '')props._setLink(url);
+    }}><i className='fa fa-pencil' title='Edit Link'/></a>
+  </span>):'';
 
   return (
-    <div>{addLink}
-    <ul>
-      {entities.map((e, index)=>{
-        return <li key={index}>{e.getData().url}</li>;
-      })}
-    </ul>
+    <div>
+      {addLink}
+      {editControl}
     </div>
   );
 
@@ -26,7 +32,8 @@ const LinkEditor = (props) => {
 
 LinkEditor.propTypes = {
   editorState: React.PropTypes.object,
-  _setLink: React.PropTypes.func
+  _setLink: React.PropTypes.func,
+  _removeLink: React.PropTypes.func
 };
 
 const selectionIsWithinOneBlock = (editorState) => {
@@ -63,8 +70,7 @@ const getEntitiesForSelection = (editorState) => {
   }
   entities = uniq(entities);
   const contentState = editorState.getCurrentContent();
-
-  return entities.map((e)=>{ return contentState.getEntity(e); });
+  return entities.map((e)=>{ return contentState.getEntity(e); }).filter((ent)=>{ return ent.type === 'LINK'; });
 
 };
 

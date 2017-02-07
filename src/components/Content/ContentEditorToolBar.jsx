@@ -47,7 +47,7 @@ const ContentEditorToolBar = (props) => {
           })}
       </div>
       <div className='btn-group' style={buttonBlockStyle} >
-        <LinkEditor editorState={props.editorState} _setLink={props._setLink} />
+        <LinkEditor editorState={props.editorState} _setLink={props._setLink} _removeLink={props._removeLink}/>
       </div>
       <div className='btn-group' style={{float:'right'}}>
         <a className='btn btn-danger btn-sm' onClick={props._delete}><i className='fa fa-trash' title='Delete this content (unrecoverable).'/></a>
@@ -70,7 +70,8 @@ ContentEditorToolBar.propTypes = {
   _delete: React.PropTypes.func,
   _moveUp: React.PropTypes.func,
   _moveDown: React.PropTypes.func,
-  _setLink: React.PropTypes.func
+  _setLink: React.PropTypes.func,
+  _removeLink: React.PropTypes.func
 };
 
 const ContentEditorToolBarButton = (props) => {
