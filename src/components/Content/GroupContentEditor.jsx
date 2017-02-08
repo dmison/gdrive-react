@@ -18,6 +18,7 @@ class GroupContentEditor extends React.Component {
       <div className='panel panel-default'>
         <div className='panel-heading' style={{padding:3}}>
           <ContentEditorToolBar
+            title='Group'
             _moveUp={()=>{ this.props.moveContent('up'); }}
             _moveDown={()=>{ this.props.moveContent('down'); }}
             _delete={()=>{

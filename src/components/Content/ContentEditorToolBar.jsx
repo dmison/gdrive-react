@@ -3,6 +3,10 @@ import React from 'react';
 const buttonBlockStyle = {
   paddingRight: 10
 };
+const titleBlockStyle = {
+  paddingRight: 10,
+  verticalAlign: 'bottom'
+};
 const labelBlockStyle = {
   paddingRight: 10,
   width: '70%'
@@ -15,6 +19,9 @@ const ContentEditorToolBar = (props) => {
       <div className='btn-group' style={buttonBlockStyle}>
         <a className='btn btn-default btn-sm' onClick={props._moveUp}><i className='fa fa-chevron-up' title='Move content block up.'/></a>
         <a className='btn btn-default btn-sm' onClick={props._moveDown}><i className='fa fa-chevron-down' title='Move content block down.'/></a>
+      </div>
+      <div className='btn-group' style={titleBlockStyle}>
+      {props.title}
       </div>
       <div className='btn-group' style={labelBlockStyle}>
         {props.children}
@@ -29,6 +36,7 @@ const ContentEditorToolBar = (props) => {
 
 ContentEditorToolBar.propTypes = {
   children: React.PropTypes.node,
+  title: React.PropTypes.string,
   _delete: React.PropTypes.func,
   _moveUp: React.PropTypes.func,
   _moveDown: React.PropTypes.func,

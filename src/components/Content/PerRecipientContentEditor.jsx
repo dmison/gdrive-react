@@ -27,6 +27,7 @@ class PerRecipientContentEditor extends React.Component {
       <div className='panel panel-default'>
         <div className='panel-heading' style={{padding:3}}>
           <ContentEditorToolBar
+            title='Recipient'
             _moveUp={()=>{ this.props.moveContent('up'); }}
             _moveDown={()=>{ this.props.moveContent('down'); }}
             _delete={()=>{
@@ -36,7 +37,6 @@ class PerRecipientContentEditor extends React.Component {
             }}>
             <span>
               <Select
-                style={{marginTop:3}}
                 name='select-recipient'
                 clearable={false}
                 value={this.state.selectedRecipient}

@@ -13,13 +13,14 @@ class CommonContentEditor extends React.Component {
       <div className='panel panel-default'>
         <div className='panel-heading' style={{padding:3}}>
           <ContentEditorToolBar
+            title='Common'
             _moveUp={()=>{ this.props.moveContent('up'); }}
             _moveDown={()=>{ this.props.moveContent('down'); }}
             _delete={()=>{
               if(window.confirm('Deleting content is unrecoverable.  Are you sure?')){
                 this.props.delete(this.props.content.id);
               }
-            }}>{this.props.children}</ContentEditorToolBar>
+            }}></ContentEditorToolBar>
         </div>
         <div className='panel-body' style={{padding: 0}}>
           <Editor
