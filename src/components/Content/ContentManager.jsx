@@ -8,19 +8,31 @@ import Tab from 'react-bootstrap/lib/Tab';
 
 const ContentManager = (props) => {
 
+  const controlStripStyle = {
+    marginTop: 15,
+    marginBottom: 15,
+    backgroundColor: '#f5f5f5',
+    padding: 3,
+    borderTop: '1px solid #ccc',
+    borderBottom: '1px solid #ccc',
+    borderLeft: '1px solid #ddd',
+    borderRight: '1px solid #ddd'
+
+  };
+
   return (
     <div>
 
 
       <Tabs defaultActiveKey={1} id="details-tabs">
           <Tab eventKey={1} title="Edit">
-              <div className='panel panel-default' style={{marginTop: 15}}>
-                <div className='panel-heading' style={{padding:3}}>
+
+              <div style={controlStripStyle}>
                   <button style={{marginRight:10, paddingBottom:2}} className='btn btn-default' onClick={props.addCommonContent}><span className='fa fa-plus'></span> Add Common Content</button>
                   <button style={{marginRight:10, paddingBottom:2}} className='btn btn-default' onClick={props.addPerRecipientContent}><span className='fa fa-plus'></span> Add Per-Recipient Content</button>
                   <button style={{marginRight:10, paddingBottom:2}} className='btn btn-default' onClick={props.addGroupContent}><span className='fa fa-plus'></span> Add Group Content</button>
-                </div>
               </div>
+
               <ul style={{ listStyleType:'none', paddingLeft:0}}>
                 {props.content.map((content, index)=>{
                   let Editor = '';
