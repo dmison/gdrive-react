@@ -39,6 +39,7 @@
     "node-uuid": "^1.4.7",
     "react": "^15.4.2",
     "react-ace": "^4.1.4",
+    "react-bootstrap": "^0.30.7",
     "react-dom": "^15.4.2",
     "react-redux": "^4.4.6",
     "react-router": "^3.0.0",

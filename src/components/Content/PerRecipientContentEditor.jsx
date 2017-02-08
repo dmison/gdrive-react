@@ -16,41 +16,8 @@ class PerRecipientContentEditor extends React.Component {
   componentDidMount(){
     if(this.props.content.editorContent.length > 0){
       this.setState({selectedRecipient: this.props.content.editorContent[0].recipient});
-      // this.setState({selectedEditorState: this.props.content.editorContent[0].editorContent});
     }
   }
-
-  // componentWillReceiveProps(nextProps) {
-  //   // if content id is different this means that the content is now different
-  //   // because the content blocks on the page have been reordered
-  //   if(nextProps.content.id !== this.props.content.id){
-  //     const newContent = this.props.content.editorContent.find((ec)=>{
-  //       return ec.recipient === this.state.selectedRecipient;
-  //     }).editorContent;
-  //     this.setState({ selectedEditorState: EditorState.createWithContent(convertFromRaw(newContent))});
-  //   }
-  // }
-
-  // _onChange(editorState) {
-  //   this.setState({selectedEditorState: editorState});
-  //   this.props.save(convertToRaw(editorState.getCurrentContent()), this.state.selectedRecipient);
-  // }
-
-  // _handleKeyCommand(command) {
-  //   const newState = RichUtils.handleKeyCommand(this.state.selectedEditorState, command);
-  //   if (newState){
-  //     this._onChange(newState);
-  //     return 'handled';
-  //   }
-  //   return 'not-handled';
-  // }
-  //
-  // _toggleInlineStyle(style){
-  //   this._onChange(RichUtils.toggleInlineStyle(this.state.selectedEditorState, style));
-  // }
-  // _toggleBlockType(type){
-  //   this._onChange(RichUtils.toggleBlockType(this.state.selectedEditorState, type));
-  // }
 
   render(){
 
