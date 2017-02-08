@@ -1,91 +1,18 @@
 import React from 'react';
-import {Editor, EditorState, RichUtils, convertToRaw, convertFromRaw} from 'draft-js';
+// import {Editor, EditorState, RichUtils, convertToRaw, convertFromRaw} from 'draft-js';
+import {Editor} from '../Editor/';
 import ContentEditorToolBar from './ContentEditorToolBar.jsx';
-import decorator from '../Editor/decorator.js';
 
 class CommonContentEditor extends React.Component {
   constructor(props){
     super(props);
-    this.state = {
-      editorState: EditorState.createWithContent(convertFromRaw(this.props.content.editorContent), decorator)
-    };
-    this._onChange = this._onChange.bind(this);
-    this._handleKeyCommand = this._handleKeyCommand.bind(this);
-
-    this._toggleBlockType = this._toggleBlockType.bind(this);
-    this._toggleInlineStyle = this._toggleInlineStyle.bind(this);
-
-    this._setLink = this._setLink.bind(this);
-    this._removeLink = this._removeLink.bind(this);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    // if content id is different this means that the content is now different
-    // because the content blocks on the page have been reordered
-    if(nextProps.content.id !== this.props.content.id){
-      this.setState({ editorState: EditorState.createWithContent(convertFromRaw(nextProps.content.editorContent), decorator)});
-    }
-  }
-
-  _onChange(editorState) {
-    this.setState({editorState: editorState});
-    this.props.save(convertToRaw(editorState.getCurrentContent()));
-  }
-
-  _handleKeyCommand(command) {
-    const newState = RichUtils.handleKeyCommand(this.state.editorState, command);
-    if (newState){
-      this._onChange(newState);
-      return 'handled';
-    }
-    return 'not-handled';
-  }
-
-  _toggleInlineStyle(style){
-    this._onChange(RichUtils.toggleInlineStyle(this.state.editorState, style));
-  }
-  _toggleBlockType(type){
-    this._onChange(RichUtils.toggleBlockType(this.state.editorState, type));
-  }
-
-  _removeLink(){
-    const editorState = this.state.editorState;
-    const selection = editorState.getSelection();
-    const updatedEditorState = RichUtils.toggleLink(editorState, selection, null);
-    this.setState({editorState: updatedEditorState});
-  }
-
-  _setLink(url){
-    const editorState = this.state.editorState;
-    const contentState = editorState.getCurrentContent();
-    const contentStateWithEntity = contentState.createEntity(
-      'LINK',
-      'MUTABLE',
-      {url: url}
-    );
-    const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
-    const newEditorState = EditorState.set(editorState, { currentContent: contentStateWithEntity });
-    this.setState({ editorState: RichUtils.toggleLink( newEditorState, newEditorState.getSelection(), null )});
-
-    this.setState({ editorState: RichUtils.toggleLink( newEditorState, newEditorState.getSelection(), entityKey )});
   }
 
   render(){
-
-    const currentInlineStyle = this.state.editorState.getCurrentInlineStyle();
-    const currentBlockType = this.state.editorState.getCurrentContent().getBlockForKey(this.state.editorState.getSelection().getStartKey()).getType();
-
     return (
       <div className='panel panel-default'>
         <div className='panel-heading' style={{padding:3}}>
           <ContentEditorToolBar
-            editorState={this.state.editorState}
-            currentInlineStyle={currentInlineStyle}
-            currentBlockType={currentBlockType}
-            _toggleBlockType={(type)=>{ this._toggleBlockType(type); }}
-            _toggleInlineStyle={(style)=>{ this._toggleInlineStyle(style); }}
-            _setLink={this._setLink}
-            _removeLink={this._removeLink}
             _moveUp={()=>{ this.props.moveContent('up'); }}
             _moveDown={()=>{ this.props.moveContent('down'); }}
             _delete={()=>{
@@ -95,14 +22,13 @@ class CommonContentEditor extends React.Component {
             }}>{this.props.children}</ContentEditorToolBar>
         </div>
         <div className='panel-body' style={{padding: 0}}>
-          <div style={{padding: 14}}>
           <Editor
-            ref={(input)=>{ this.editor = input; }}
-            editorState={this.state.editorState}
-            onChange={this._onChange}
-            handleKeyCommand={this._handleKeyCommand}
-            placeholder='Put content here that will go to all recipients.'/>
-</div>
+            content={this.props.content.editorContent}
+            onChange={(content)=>{ this.props.save(content); }}
+            mode='markdown'
+            theme='tomorrow'
+            wrapEnabled={true}
+            />
         </div>
       </div>
     );

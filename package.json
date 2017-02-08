@@ -32,7 +32,6 @@
   },
   "dependencies": {
     "bootstrap": "^3.3.7",
-    "draft-js": "^0.10.0",
     "font-awesome": "^4.7.0",
     "google-client-api": "^1.0.4",
     "index-template": "^1.1.1",
