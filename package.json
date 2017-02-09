@@ -1,5 +1,6 @@
 {
   "name": "Polydactyl",
+  "repository": "https://github.com/dmison/polydactyl",
   "version": "1.0.0",
   "description": "A web UI for sending bulk emails with per-recipient custom content.",
   "main": "index.js",
@@ -9,7 +10,7 @@
     "build": "npm run clean; cross-env NODE_ENV=production webpack -p --progress --colors --config webpack.prod.config.js; cp -rfv app/ dist/",
     "clean": "rm -rfv dist app/*woff* app/*ttf app/*svg app/*eot app/index.js* app/styles.css"
   },
-  "author": "",
+  "author": "D Mison",
   "license": "ISC",
   "devDependencies": {
     "babel-core": "^6.18.2",
