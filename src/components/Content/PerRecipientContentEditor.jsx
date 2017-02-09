@@ -86,11 +86,3 @@ PerRecipientContentEditor.propTypes = {
 };
 
 export default PerRecipientContentEditor;
-
-
-// {typeof thisRecipient !== 'undefined'?<Editor
-//   ref={(input)=>{ this.editor = input; }}
-//   editorState={this.state.selectedEditorState}
-//   onChange={this._onChange}
-//   handleKeyCommand={this._handleKeyCommand}
-//   placeholder={`Put content here that will go to ${thisRecipient.name} <${thisRecipient.email}>`} />:''}
