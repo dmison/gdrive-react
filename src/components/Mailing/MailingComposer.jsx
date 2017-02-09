@@ -1,6 +1,7 @@
 import React from 'react';
 import {RecipientsManager} from '../Recipient';
 import {ContentManager} from '../Content';
+import FocusToEditInput from '../FocusToEditInput.jsx';
 
 const MailingComposer = (props) => {
 
@@ -10,7 +11,24 @@ const MailingComposer = (props) => {
 
   return (
     <div>
-      <h4>{props.mailing.name}</h4>
+      <div><b style={{paddingRight: 5}}>Mailing Name:</b>
+        <FocusToEditInput
+          value={props.mailing.name}
+          onChange={(name)=>{ props.updateMailing(props.mailing.id, name, props.mailing.subject); } }
+          editPlaceHolder='Type mailing name here.'
+          viewPlaceHolder='No mailing name. Click here to edit.'
+          />
+      </div>
+
+      <div><b style={{paddingRight: 5}}>Subject:</b>
+        <FocusToEditInput
+          value={props.mailing.subject}
+          onChange={(subject)=>{ props.updateMailing(props.mailing.id, props.mailing.name, subject); } }
+          editPlaceHolder='Type subject here.'
+          viewPlaceHolder='No subject. Click here to edit.'
+          />
+      </div>
+
       <RecipientsManager  recipients={props.recipients} addRecipient={ (name,email)=>{ props.addRecipient(props.uuid, name, email); } } delRecipient={ (id)=>{ props.delRecipient(props.uuid, id); } } />
       <ContentManager
         mailing={props.mailing.id}
@@ -34,6 +52,7 @@ MailingComposer.propTypes = {
   uuid: React.PropTypes.string,
   recipients: React.PropTypes.array,
   mailing: React.PropTypes.object,
+  updateMailing: React.PropTypes.func,
   content: React.PropTypes.array,
   addRecipient: React.PropTypes.func,
   delRecipient: React.PropTypes.func,
