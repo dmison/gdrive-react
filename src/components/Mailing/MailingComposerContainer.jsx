@@ -11,6 +11,8 @@ import {  addCommonContent,
           delContent,
           moveContent} from '../Content';
 
+import {updateMailing} from './actions.js';
+
 import { addRecipient, delRecipient } from '../Recipient';
 
 const mapStateToProps = (state, ownProps) => {
@@ -39,7 +41,9 @@ const mapDispatchToProps = (dispatch) => {
     updateGroupContentRecipients: (content, recipients) => { dispatch(updateGroupContentRecipients(content, recipients)); },
 
     moveContent: (content, direction) => { dispatch(moveContent(content, direction)); },
-    delContent: (content) => { dispatch(delContent(content)); }
+    delContent: (content) => { dispatch(delContent(content)); },
+
+    updateMailing: (id, name, subject) => { dispatch(updateMailing(id,name,subject)); }
   };
 };
 

@@ -8,7 +8,17 @@ const mailings_reducer = (mailings = [], action) => {
       id: uuid.v1(),
       name: action.name,
       recepients: [],
+      subject:'',
       content: []
+    });
+
+  case 'UPDATE_MAILING':
+    return mailings.map((m)=>{
+      if(m.id === action.mailing){
+        m.name = action.name;
+        m.subject = action.subject;
+      }
+      return m;
     });
 
   default: return mailings;

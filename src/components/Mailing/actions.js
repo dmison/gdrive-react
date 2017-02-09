@@ -5,6 +5,16 @@ const addMailingAction = (name) => {
   };
 };
 
+const updateMailing = (id, name, subject) => {
+  return {
+    type: 'UPDATE_MAILING',
+    mailing: id,
+    name: name,
+    subject: subject
+  };
+};
+
 export {
-  addMailingAction
+  addMailingAction,
+  updateMailing
 };
