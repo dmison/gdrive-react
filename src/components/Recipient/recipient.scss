@@ -12,6 +12,7 @@
   padding: 4px 6px 4px 6px;
   &:hover {
     border-color: #ccc;
+
   }
 }
 
@@ -30,4 +31,13 @@
   input {
 
   }
+}
+
+
+.delRecipient {
+  display: none;
+}
+
+.recipient.viewing:hover .delRecipient, .recipient.hover .delRecipient {
+  display: inline;
 }

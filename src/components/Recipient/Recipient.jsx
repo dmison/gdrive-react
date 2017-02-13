@@ -31,10 +31,9 @@ class Recipient extends React.Component {
       </span>
 
     ) : (
-      <span className={`recipient viewing ${valid}`}
-        ref={(input)=>{this.viewer = input;} }
-        onClick={()=>{ this.setState({editing: true, inputWidth: this.viewer.offsetWidth}, ()=>{this.inputbox.focus();}); }}>
-          {this.props.recipient.detail}
+        <span className={`recipient viewing ${valid}`} ref={(input)=>{this.viewer = input;} }>
+          <span onClick={()=>{ this.setState({editing: true, inputWidth: this.viewer.offsetWidth}, ()=>{this.inputbox.focus();}); }}>{this.props.recipient.detail}</span>
+          <span className='delRecipient'> <i onClick={()=>{ this.props._remove(); }} className="fa fa-times" style={{color: '#982d22'}}aria-hidden="true"></i></span>
       </span>
     );
 
