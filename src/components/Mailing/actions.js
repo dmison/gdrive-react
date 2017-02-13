@@ -14,7 +14,15 @@ const updateMailing = (id, name, subject) => {
   };
 };
 
+const deleteMailing = (id) => {
+  return {
+    type: 'DELETE_MAILING',
+    mailing: id
+  };
+};
+
 export {
   addMailingAction,
-  updateMailing
+  updateMailing,
+  deleteMailing
 };

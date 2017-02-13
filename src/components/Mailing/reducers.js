@@ -21,6 +21,11 @@ const mailings_reducer = (mailings = [], action) => {
       return m;
     });
 
+  case 'DELETE_MAILING':
+    return mailings.filter((m)=>{
+      return m.id !== action.mailing;
+    });
+
   default: return mailings;
   }
 };
