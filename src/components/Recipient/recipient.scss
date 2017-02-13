@@ -15,8 +15,13 @@
   }
 }
 
-.viewing .invalid {
-  @extend .viewing;
+.viewing.invalid {
+    background-color: #ff6666;
+    border-color: #ff6666;
+    color: black;
+    &:hover {
+      border-color: #982d22;
+    }
 
 }
 
