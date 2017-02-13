@@ -1,24 +1,30 @@
 import React from 'react';
-import {Link} from 'react-router';
+import {hashHistory} from 'react-router';
 import {name} from '../../package.json';
+
+
+import Navbar from 'react-bootstrap/lib/Navbar';
+import Nav from 'react-bootstrap/lib/Nav';
+import NavItem from 'react-bootstrap/lib/NavItem';
 
 const App = (props) => {
   return (
     <div>
 
-      <nav className="navbar navbar-inverse navbar-static-top">
-        <div className="container-fluid">
-          <div className="navbar-header">
-            <span className="navbar-brand">{name}</span>
-            <ul className='nav navbar-nav'>
-              <li><Link activeClassName='active' to='/'>Home</Link></li>
-              <li><Link activeClassName='active' to='mailings'>Mailings</Link></li>
-              <li><Link activeClassName='active' to='about'>About</Link></li>
-            </ul>
+            <Navbar staticTop fluid inverse collapseOnSelect>
+              <Navbar.Header>
+                <Navbar.Brand>{name}</Navbar.Brand>
+                <Navbar.Toggle />
+              </Navbar.Header>
+              <Navbar.Collapse>
+              <Nav>
+                <NavItem key={1} href="#" onClick={()=>{ hashHistory.push('/'); }}>Home</NavItem>
+                <NavItem key={2} href="#" onClick={()=>{ hashHistory.push('/mailings'); }}>Mailings</NavItem>
+                <NavItem key={3} href="#" onClick={()=>{ hashHistory.push('/about'); }}>Abouts</NavItem>
 
-          </div>
-        </div>
-      </nav>
+              </Nav>
+              </Navbar.Collapse>
+            </Navbar>
 
 
       <div className='container'>
