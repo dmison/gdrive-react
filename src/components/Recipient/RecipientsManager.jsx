@@ -25,7 +25,7 @@ class RecipientsManager extends React.Component {
                 <li style={{display: 'inline-block', listStyleType: 'none', marginBottom:6}} key={index}>
                   <Recipient recipient={recipient}
                     _remove={()=>{this.props.delRecipient(recipient.id);}}
-                    _update={(detail)=>{ this.props.updateRecipient(recipient.id, detail)}}
+                    _update={(detail)=>{ this.props.updateRecipient(recipient.id, detail);}}
                     />
                 </li>
               );

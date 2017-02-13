@@ -3,11 +3,13 @@ const recipients_reducer = (recipients = [], action) => {
   switch (action.type){
 
   case 'ADD_RECIPIENT':
-    return recipients.concat({
-      id: action.newID,
-      detail: action.detail,
-      mailing: action.mailing,
-    });
+    return recipients.concat(action.details.map((d, index)=>{
+      return {
+        id: action.newIDs[index],
+        detail: d.trim(),
+        mailing: action.mailing,
+      };
+    }));
 
   case 'DEL_RECIPIENT':
     return recipients.filter((recipient)=>{

@@ -1,11 +1,11 @@
 import uuid from 'node-uuid';
 
-const addRecipient = (mailing, detail) => {
+const addRecipient = (mailing, details) => {
   return {
     type: 'ADD_RECIPIENT',
     mailing: mailing,
-    detail: detail,
-    newID: uuid.v1()
+    details: details.split(','),
+    newIDs: details.split(',').map(()=>{ return uuid.v1(); })
   };
 };
 

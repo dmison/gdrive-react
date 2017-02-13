@@ -6,10 +6,12 @@ const content_reducer = (content = [], action) => {
   case 'ADD_RECIPIENT':
     return content.map((c)=>{
       if(c.mailing === action.mailing && c.type === 'per_recipient'){
-        c.editorContent = c.editorContent.concat({
-          recipient: action.newID,
-          editorContent: ''
-        });
+        c.editorContent = c.editorContent.concat(action.newIDs.map((id)=>{
+          return {
+            recipient: id,
+            editorContent: ''
+          };
+        }));
       }
       return c;
     });
