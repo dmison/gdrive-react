@@ -42,7 +42,7 @@ class PerRecipientContentEditor extends React.Component {
                 value={this.state.selectedRecipient}
                 options={this.props.content.editorContent.map((ec)=>{
                   const rdetails = this._recipientDetails(ec.recipient);
-                  return {value:ec.recipient, label: `${rdetails.name} ${rdetails.email}`};
+                  return {value:ec.recipient, label: rdetails.detail};
                 })}
                 onChange={(value)=>{
                   if(!Array.isArray(value)){

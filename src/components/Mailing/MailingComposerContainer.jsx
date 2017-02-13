@@ -27,7 +27,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch) => {
   return {
 
-    addRecipient: (mailing, name, email) => { dispatch(addRecipient(mailing, name, email)); },
+    addRecipient: (mailing, detail) => { dispatch(addRecipient(mailing, detail)); },
     delRecipient: (mailing, recipient) => { dispatch(delRecipient(mailing, recipient)); },
 
     addCommonContent: (mailing) => { dispatch(addCommonContent(mailing)); },

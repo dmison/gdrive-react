@@ -5,8 +5,7 @@ const recipients_reducer = (recipients = [], action) => {
   case 'ADD_RECIPIENT':
     return recipients.concat({
       id: action.newID,
-      name: action.name,
-      email: action.email,
+      detail: action.detail,
       mailing: action.mailing,
     });
 

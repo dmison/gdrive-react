@@ -34,7 +34,7 @@ class GroupContentEditor extends React.Component {
               delimited=','
               value={this.props.content.recipients.join(',')}
               options={this.props.recipients.map((r)=>{
-                return {value:r.id, label: `${r.name} ${r.email}`, clearableValue:true};
+                return {value:r.id, label: r.detail, clearableValue:true};
               })}
               onChange={(value)=>{
                 this.props.updateRecipients( value.map((r)=>{ return r.value; }) );
