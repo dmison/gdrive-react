@@ -27,6 +27,8 @@
     "json-loader": "^0.5.4",
     "less": "^2.7.2",
     "less-loader": "^2.2.3",
+    "node-sass": "^4.5.0",
+    "sass-loader": "^5.0.1",
     "url-loader": "^0.5.7",
     "webpack": "^1.14.0",
     "webpack-dev-server": "^1.16.2"

@@ -32,6 +32,12 @@ module.exports = {
         loader: ExtractTextPlugin.extract('css-loader!less-loader')
       },
 
+      {
+        test: /\.(scss)$/,
+        loader: ExtractTextPlugin.extract('css-loader!sass-loader')
+      },
+
+
       /** font-awesome */
       {
         test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
