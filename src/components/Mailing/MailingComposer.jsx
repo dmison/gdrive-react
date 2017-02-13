@@ -11,25 +11,36 @@ const MailingComposer = (props) => {
 
   return (
     <div>
-      <div><b style={{paddingRight: 5}}>Mailing Name:</b>
-        <FocusToEditInput
-          value={props.mailing.name}
-          onChange={(name)=>{ props.updateMailing(props.mailing.id, name, props.mailing.subject); } }
-          editPlaceHolder='Type mailing name here.'
-          viewPlaceHolder='No mailing name. Click here to edit.'
-          />
+      <div  style={{paddingBottom: 20}}>
+        <div style={{paddingBottom: 15}}><b style={{display: 'inline-block', paddingRight: 5, width: 120}}>Mailing Name:</b>
+          <FocusToEditInput
+            value={props.mailing.name}
+            onChange={(name)=>{ props.updateMailing(props.mailing.id, name, props.mailing.subject); } }
+            editPlaceHolder='Type mailing name here.'
+            viewPlaceHolder='No mailing name. Click here to edit.'
+            textStyle={{borderBottom: '1px solid grey', paddingBottom:3}}
+            />
+        </div>
+
+        <div style={{paddingBottom: 15}}><b style={{display: 'inline-block', paddingRight: 5, width: 120}}>Subject:</b>
+          <FocusToEditInput
+            value={props.mailing.subject}
+            onChange={(subject)=>{ props.updateMailing(props.mailing.id, props.mailing.name, subject); } }
+            editPlaceHolder='Type subject here.'
+            viewPlaceHolder='No subject. Click here to edit.'
+            textStyle={{borderBottom: '1px solid grey', paddingBottom:3}}
+            />
+        </div>
+
+        <RecipientsManager
+          recipients={props.recipients}
+          addRecipient={ (detail)=>{ props.addRecipient(props.uuid, detail); } }
+          delRecipient={ (id)=>{ props.delRecipient(props.uuid, id); } }
+          updateRecipient={ (id, detail)=> { props.updateRecipient(id, detail); } }
+        />
+
       </div>
 
-      <div><b style={{paddingRight: 5}}>Subject:</b>
-        <FocusToEditInput
-          value={props.mailing.subject}
-          onChange={(subject)=>{ props.updateMailing(props.mailing.id, props.mailing.name, subject); } }
-          editPlaceHolder='Type subject here.'
-          viewPlaceHolder='No subject. Click here to edit.'
-          />
-      </div>
-
-      <RecipientsManager  recipients={props.recipients} addRecipient={ (name,email)=>{ props.addRecipient(props.uuid, name, email); } } delRecipient={ (id)=>{ props.delRecipient(props.uuid, id); } } />
       <ContentManager
         mailing={props.mailing.id}
         content={props.content}
@@ -56,6 +67,7 @@ MailingComposer.propTypes = {
   content: React.PropTypes.array,
   addRecipient: React.PropTypes.func,
   delRecipient: React.PropTypes.func,
+  updateRecipient: React.PropTypes.func,
   addCommonContent: React.PropTypes.func,
   addPerRecipientContent: React.PropTypes.func,
   updatePerRecipientContent: React.PropTypes.func,

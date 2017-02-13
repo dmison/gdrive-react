@@ -1,0 +1,28 @@
+.recipient {
+  margin-right: 5px;
+}
+
+.viewing {
+  @extend .recipient;
+  border-radius: 3px;
+  border-color: #f4f5f4;
+  border-style: solid;
+  border-width: 1px;
+  background-color: #f4f5f4;
+  padding: 4px 6px 4px 6px;
+  &:hover {
+    border-color: #ccc;
+  }
+}
+
+.viewing .invalid {
+  @extend .viewing;
+
+}
+
+.editing {
+  @extend .recipient;
+  input {
+
+  }
+}
