@@ -18,7 +18,10 @@ const MailingComposer = (props) => {
             onChange={(name)=>{ props.updateMailing(props.mailing.id, name, props.mailing.subject); } }
             editPlaceHolder='Type mailing name here.'
             viewPlaceHolder='No mailing name. Click here to edit.'
-            textStyle={{borderBottom: '1px solid grey', paddingBottom:3}}
+            textStyle={{borderBottom: '1px solid lightgrey', paddingBottom:3,
+              backgroundColor: (props.mailing.name === '')? '#ff6666' : '',
+              padding: (props.mailing.name === '')? 3 : 0
+            }}
             />
         </div>
 
@@ -28,7 +31,11 @@ const MailingComposer = (props) => {
             onChange={(subject)=>{ props.updateMailing(props.mailing.id, props.mailing.name, subject); } }
             editPlaceHolder='Type subject here.'
             viewPlaceHolder='No subject. Click here to edit.'
-            textStyle={{borderBottom: '1px solid grey', paddingBottom:3}}
+            textStyle={{borderBottom: '1px solid lightgrey', paddingBottom:3,
+              backgroundColor: (props.mailing.subject === '')? '#ff6666' : '',
+              padding: (props.mailing.subject === '')? 3 : 0
+            }}
+
             />
         </div>
 
