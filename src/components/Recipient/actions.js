@@ -17,7 +17,16 @@ const delRecipient = (mailing, recipient) => {
   };
 };
 
+const updateRecipient = (recipient, detail) => {
+  return {
+    type: 'UPDATE_RECIPIENT',
+    detail: detail,
+    recipient: recipient
+  };
+};
+
 export {
   addRecipient,
-  delRecipient
+  delRecipient,
+  updateRecipient
 };

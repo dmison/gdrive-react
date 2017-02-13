@@ -13,7 +13,7 @@ import {  addCommonContent,
 
 import {updateMailing} from './actions.js';
 
-import { addRecipient, delRecipient } from '../Recipient';
+import { addRecipient, delRecipient, updateRecipient } from '../Recipient';
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -29,6 +29,7 @@ const mapDispatchToProps = (dispatch) => {
 
     addRecipient: (mailing, detail) => { dispatch(addRecipient(mailing, detail)); },
     delRecipient: (mailing, recipient) => { dispatch(delRecipient(mailing, recipient)); },
+    updateRecipient: (recipient, detail) => { dispatch(updateRecipient(recipient, detail)); },
 
     addCommonContent: (mailing) => { dispatch(addCommonContent(mailing)); },
     updateCommonContentText: (content, editorContent) => { dispatch(updateCommonContentText(content, editorContent)); },

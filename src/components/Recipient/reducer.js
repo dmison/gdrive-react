@@ -14,6 +14,12 @@ const recipients_reducer = (recipients = [], action) => {
       return !(recipient.id === action.recipient && recipient.mailing === action.mailing);
     });
 
+  case 'UPDATE_RECIPIENT':
+    return recipients.map((r)=>{
+      r.detail = (r.id === action.recipient) ? action.detail : r.detail;
+      return r;
+    });
+
   default: return recipients;
   }
 };
