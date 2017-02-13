@@ -21,7 +21,7 @@ const App = (props) => {
                 <NavItem key={1} href="#" onClick={()=>{ hashHistory.push('/'); }}>Home</NavItem>
                 <NavItem key={2} href="#" onClick={()=>{ hashHistory.push('/mailings'); }}>Mailings</NavItem>
                 <NavItem key={3} href="#">Recipient</NavItem>
-                <NavItem key={4} href="#" onClick={()=>{ hashHistory.push('/about'); }}>Abouts</NavItem>
+                <NavItem key={4} href="#" onClick={()=>{ hashHistory.push('/about'); }}>About</NavItem>
 
               </Nav>
               </Navbar.Collapse>
