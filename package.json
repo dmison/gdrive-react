@@ -5,7 +5,7 @@
   "description": "A web UI for sending bulk emails with per-recipient custom content.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha './src/**/*.spec.js' --compilers js:babel-core/register",
     "start": "webpack-dev-server --config=webpack.dev.config.js --inline --hot",
     "build": "npm run clean; cross-env NODE_ENV=production webpack -p --progress --colors --config webpack.prod.config.js; cp -rfv app/ dist/",
     "clean": "rm -rfv dist app/*woff* app/*ttf app/*svg app/*eot app/index.js* app/styles.css"
@@ -18,6 +18,7 @@
     "babel-preset-env": "^1.1.8",
     "babel-preset-react": "^6.16.0",
     "babel-preset-react-hmre": "^1.1.1",
+    "chai": "^3.5.0",
     "cross-env": "^3.1.4",
     "css-loader": "^0.26.1",
     "eslint": "^3.10.2",
@@ -27,6 +28,7 @@
     "json-loader": "^0.5.4",
     "less": "^2.7.2",
     "less-loader": "^2.2.3",
+    "mocha": "^3.2.0",
     "node-sass": "^4.5.0",
     "sass-loader": "^5.0.1",
     "url-loader": "^0.5.7",
