@@ -26,7 +26,7 @@ class Previewer extends React.Component {
           clearable={false}
           value={this.state.selectedRecipient}
           options={this.props.recipients.map((r)=>{
-            return {value:r.id, label: `${r.name} ${r.email}`};
+            return {value:r.id, label: `${r.detail}`};
           })}
           onChange={(value)=>{
             if(!Array.isArray(value)){
