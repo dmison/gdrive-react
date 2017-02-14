@@ -1,0 +1,30 @@
+$highlight-color: rgb(240,240,240);
+
+.mailing-list-item {
+  list-style-type: none;
+  padding: 5px 0px 5px 0px;
+  margin: 0px;
+  border-bottom: 1px solid $highlight-color;
+  &:last-child {
+    border-bottom: 0px;
+  }
+  &:hover {
+    background-color: $highlight-color;
+  }
+  span {
+    margin-left: 10px;
+  }
+  i.mailingDel {
+    display: none;
+    margin-top: 3px;
+    margin-right: 8px;
+    float: right;
+    cursor: pointer;
+  }
+
+}
+
+
+.mailing-list-item:hover i.mailingDel, .mailing-list-item.hover i.mailingDel {
+  display: inline !important;
+}
