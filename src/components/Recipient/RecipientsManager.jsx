@@ -70,8 +70,10 @@ class AddNewRecipientControl extends React.Component {
     return (
       <div style={{display: 'inline'}}>
         <input
+          style={{width:200}}
           ref={(input)=>{ this.detailEditBox = input; }}
           type='text'
+          placeholder='[Name] [email]'
           value={this.state.name}
           onChange={(event)=>{ this.setState({detail:event.target.value}); }}
         />

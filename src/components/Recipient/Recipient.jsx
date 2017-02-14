@@ -23,7 +23,7 @@ class Recipient extends React.Component {
           onChange={(event)=>{ this.props._update(event.target.value); }}
           type='text'
           title='edit recipient'
-          placeholder='add recipient'
+          placeholder='[Name] [email]'
           value={ this.props.recipient.detail }
           onBlur={()=>{this.setState({editing: false});}}
           onKeyUp={(event)=>{ if (event.key === 'Enter'){ this.setState({editing: false}); }}}
