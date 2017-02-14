@@ -12,6 +12,7 @@ import {Provider} from 'react-redux';
 import App from './components/App.jsx';
 import home from './components/Home';
 import about from './components/About';
+import {recipientsplaceholder} from './components/Recipient';
 import {MailingsManagerContainer} from './components/Mailing';
 import {MailingComposerContainer} from './components/Mailing';
 
@@ -24,6 +25,7 @@ render(<Provider store={store}>
       <IndexRoute component={home} />
       <Route path='mailings' component={MailingsManagerContainer} />
       <Route path='mailings/:uuid' component={MailingComposerContainer} />
+      <Route path='recipients' component={recipientsplaceholder} />
       <Route path='about' component={about} />
 
 
