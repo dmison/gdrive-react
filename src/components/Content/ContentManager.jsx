@@ -28,9 +28,9 @@ const ContentManager = (props) => {
           <Tab eventKey={1} title="Edit">
 
               <div style={controlStripStyle}>
-                  <button style={{marginRight:10, paddingBottom:2}} className='btn btn-default' onClick={props.addCommonContent}><span className='fa fa-plus'></span> Add Common Content</button>
-                  <button style={{marginRight:10, paddingBottom:2}} className='btn btn-default' onClick={props.addPerRecipientContent}><span className='fa fa-plus'></span> Add Per-Recipient Content</button>
-                  <button style={{marginRight:10, paddingBottom:2}} className='btn btn-default' onClick={props.addGroupContent}><span className='fa fa-plus'></span> Add Group Content</button>
+                  <button style={{marginRight:10, paddingBottom:5}} className='btn btn-default' onClick={props.addCommonContent}><span className='fa fa-plus'></span> Add Common Content</button>
+                  <button style={{marginRight:10, paddingBottom:5}} className='btn btn-default' onClick={props.addPerRecipientContent}><span className='fa fa-plus'></span> Add Per-Recipient Content</button>
+                  <button style={{marginRight:10, paddingBottom:5}} className='btn btn-default' onClick={props.addGroupContent}><span className='fa fa-plus'></span> Add Group Content</button>
               </div>
 
               <ul style={{ listStyleType:'none', paddingLeft:0}}>
