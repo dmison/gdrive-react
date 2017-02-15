@@ -18,6 +18,12 @@ class App extends React.Component {
     this._updateSigninStatus = this._updateSigninStatus.bind(this);
   }
 
+  getChildContext(){
+    return {
+      gapi: this.state.gapi
+    };
+  }
+
   componentDidMount(){
     require('google-client-api')().then((gapi)=>{
       console.log('initializing GAPI...');
@@ -110,5 +116,10 @@ class App extends React.Component {
 App.propTypes = {
   children: React.PropTypes.node
 };
+
+App.childContextTypes = {
+  gapi: React.PropTypes.object
+};
+
 
 export default App;
