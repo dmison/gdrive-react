@@ -16,7 +16,6 @@ import {recipientsplaceholder} from './components/Recipient';
 import {MailingsManagerContainer} from './components/Mailing';
 import {MailingComposerContainer} from './components/Mailing';
 
-// import gdad from './gdad.js';
 import store from './store.js';
 
 render(<Provider store={store}>
@@ -32,50 +31,3 @@ render(<Provider store={store}>
     </Route>
   </Router>
 </Provider>, document.getElementById('app'));
-
-// require('google-client-api')().then((gapi)=>{
-//   console.log('initializing...');
-//
-//   var CLIENT_ID = '396884850311-nudjgl5o8i1p2ag9932s6ddl81f7pov2.apps.googleusercontent.com';
-//   var config = gdad('config.json', CLIENT_ID, gapi);
-//   var loggedIn = false;
-//   // renderApp('');
-//   config.read().then(function(data){
-//     if(data){
-//       loggedIn = true;
-//       renderApp(data.thisthing);
-//     } else {
-//       changeData(''); //sets defaults
-//
-//     }
-//   }, function(){
-//     //not authenticated so take care of that
-//     renderApp('');
-//     console.log('you need to log in first');
-//     config.read().then(function(data){
-//       if(data){
-//         loggedIn = true;
-//         renderApp(data.thisthing);
-//       } else {
-//         changeData(''); //sets defaults
-//       }
-//     });
-//   });
-//
-//   // var renderApp = function(data){
-//   //   // console.log('display: ', data);
-//   //   var label = document.getElementById('theValue');
-//   //   label.textContent = data;
-//   // };
-//
-//   var changeData = function(data){
-//     config.save({thisthing: data});
-//     renderApp(data);
-//   };
-//
-//   var renderApp = function(data){
-//     render( <App value={data} loggedIn={loggedIn} save={changeData}/>, document.getElementById('app') );
-//   };
-//
-//
-// });
