@@ -29,7 +29,7 @@ class App extends React.Component {
       console.log('initializing GAPI...');
       var CLIENT_ID = '1083074050385-cgb3btfhipjd45mhhecoiiqkug8noon9.apps.googleusercontent.com';
       var DISCOVERY_DOCS = ['https://www.googleapis.com/discovery/v1/apis/gmail/v1/rest', 'https://people.googleapis.com/$discovery/rest'];
-      var SCOPES = 'https://www.googleapis.com/auth/gmail.readonly profile';
+      var SCOPES = 'https://www.googleapis.com/auth/gmail.send profile';
 
       gapi.client.init({
         discoveryDocs: DISCOVERY_DOCS,
