@@ -49,7 +49,7 @@ const MailingComposer = (props) => {
       </div>
 
       <ContentManager
-        mailing={props.mailing.id}
+        mailing={props.mailing}
         content={props.content}
         recipients={props.recipients}
         delContent={ (content)=>{props.delContent(content);} }

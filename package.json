@@ -40,6 +40,7 @@
     "font-awesome": "^4.7.0",
     "google-client-api": "^1.0.4",
     "index-template": "^1.1.1",
+    "js-base64": "^2.1.9",
     "lodash": "^4.17.2",
     "node-uuid": "^1.4.7",
     "react": "^15.4.2",

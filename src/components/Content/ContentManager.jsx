@@ -3,6 +3,8 @@ import CommonContentEditor from './CommonContentEditor.jsx';
 import PerRecipientContentEditor from './PerRecipientContentEditor.jsx';
 import GroupContentEditor from './GroupContentEditor.jsx';
 import Preview from './Previewer.jsx';
+import EmailSender from '../Email/EmailSender.jsx';
+
 import Tabs from 'react-bootstrap/lib/Tabs';
 import Tab from 'react-bootstrap/lib/Tab';
 
@@ -79,7 +81,7 @@ const ContentManager = (props) => {
           </Tab>
 
           <Tab eventKey={3} title="Send">
-            <p>email sending stuff here</p>
+            <EmailSender subject={props.mailing.subject} content={props.content} recipients={props.recipients}/>
           </Tab>
 
 
@@ -93,7 +95,7 @@ const ContentManager = (props) => {
 ContentManager.propTypes = {
   content: React.PropTypes.array,
   recipients: React.PropTypes.array,
-  mailing: React.PropTypes.string,
+  mailing: React.PropTypes.object,
   addCommonContent: React.PropTypes.func,
   addPerRecipientContent: React.PropTypes.func,
   updatePerRecipientContentText: React.PropTypes.func,
