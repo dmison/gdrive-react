@@ -3,6 +3,7 @@ var Base64 = require('js-base64').Base64;
 import contentForRecipient from '../Content/ContentForRecipient.js';
 import {getEmail, isValid} from '../Recipient/utils.js';
 import Modal from 'react-bootstrap/lib/Modal';
+import Alert from 'react-bootstrap/lib/Alert';
 import eachOfLimit from 'async/eachOfLimit';
 
 class EmailSender extends React.Component {
@@ -54,7 +55,7 @@ class EmailSender extends React.Component {
             <button
               className='btn btn-success'
               style={{fontSize:12, paddingBottom: 5, margin: '0px 10px 0px 0px', float: 'right'}}
-              disabled={this.state.status.length === 0 || this.state.sending}
+              disabled={!this.context.gapi || this.state.status.length === 0 || this.state.sending}
               onClick={this._sendEmail}>
                 {this.state.sending? 'Sending ':'Send '}
                 {this.state.sending? <i className="fa fa-circle-o-notch fa-spin" aria-hidden="true"></i>:<i className='fa fa-paper-plane-o' aria-hidden='true'></i>}
@@ -68,6 +69,11 @@ class EmailSender extends React.Component {
 
         </Modal.Header>
         <Modal.Body>
+
+          {this.context.gapi === null?<Alert bsStyle='danger'>
+            <p><strong>Google API not initialized!</strong> You won't be able to send email.</p>
+            <p>Workaround: go back to <a href='#mailings'>#/mailings</a>, refresh the page and wait until login/logout button appears.</p>
+          </Alert>:''}
 
           <h4>{areInvalidRecipients?'Valid ':''}Recipients {areInvalidRecipients?<small>{this.state.status.length} valid of {this.props.recipients.length}</small>:''}</h4>
           <ul style={{listStyleType: 'none', paddingLeft: 0}}>
