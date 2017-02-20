@@ -2,91 +2,153 @@ import React from 'react';
 var Base64 = require('js-base64').Base64;
 import contentForRecipient from '../Content/ContentForRecipient.js';
 import {getEmail, isValid} from '../Recipient/utils.js';
+import Modal from 'react-bootstrap/lib/Modal';
+import eachOfLimit from 'async/eachOfLimit';
 
 class EmailSender extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      selected: []
+      status: [],
+      sending: false,
+      abort: false
     };
+    this._sendEmail = this._sendEmail.bind(this);
   }
 
-  // componentDidMount(){
-  //   this.setState({recipients: this.props.recipients});
-  // }
-  //
-  // componentWillUpdate(nextProps){
-  //   this.setState({recipients: nextProps.recipients});
-  // }
-  // shouldComponentUpdate(nextProps, nextState, nextContext){
-  //   console.log(nextContext);
-  //   return true;
-  // }
+  componentWillReceiveProps(newProps){
+    if(newProps.show && !this.props.show){
+      this.setState({status: this.props.recipients.filter((r)=>{ return isValid(r.detail); }).map((recipient)=>{
+        return {
+          id: recipient.id,
+          detail: recipient.detail,
+          sent: ''
+        };
+      }), sending: false});
+
+    }
+
+  }
 
   render(){
 
-    const messages = this.state.selected.map((r)=>{
-      return `To: ${getEmail(r.detail)}\r\nSubject: ${this.props.subject}\r\n\r\n${contentForRecipient(this.props.content, r.id).join('\r\n\r\n')}`;
-    });
-
     const invalidStyle = {
       backgroundColor: 'red',
-      color: 'white'
+      color: 'white',
+      padding: '3px 7px',
+      borderRadius: '3px'
     };
+    const areInvalidRecipients = this.props.recipients.length > this.state.status.length;
 
     return (
-      <div>
-        <ul>
-          {this.props.recipients.map((r)=>{
-            const checked = this.state.selected.findIndex((element)=>{
-              return element.id === r.id;
-            }) !== -1;
-            return <li key={r.id}
-                              style={isValid(r.detail)?{}:invalidStyle}>
-              <input  type='checkbox'
+      <Modal show={this.props.show}>
+        <Modal.Header style={{padding: '7px'}}>
+          <Modal.Title style={{display: 'inline-block', paddingTop: '3px', marginLeft: '7px'}}>Send Email</Modal.Title>
+            <button
+              disabled={this.state.sending}
+              className='btn btn-default'
+              style={{fontSize:12, paddingBottom: 5, margin: '0px', float: 'right'}}
+              onClick={this.props.onDone}>
+                Close <i className='fa fa-times' aria-hidden='true'></i>
+            </button>
+            <button
+              className='btn btn-success'
+              style={{fontSize:12, paddingBottom: 5, margin: '0px 10px 0px 0px', float: 'right'}}
+              disabled={this.state.status.length === 0 || this.state.sending}
+              onClick={this._sendEmail}>
+                {this.state.sending? 'Sending ':'Send '}
+                {this.state.sending? <i className="fa fa-circle-o-notch fa-spin" aria-hidden="true"></i>:<i className='fa fa-paper-plane-o' aria-hidden='true'></i>}
+            </button>
+            <button
+              className='btn btn-danger'
+              style={{display:this.state.sending? 'block':'none',fontSize:12, paddingBottom: 5, margin: '0px 10px 0px 0px', float: 'right'}}
+              onClick={()=>{this.setState({abort: true});}}>
+                Abort <i className='fa fa-warning' aria-hidden='true'></i>
+            </button>
 
-                      checked={isValid(r.detail) && checked}
-                      onChange={(event)=>{
-                        if(event.target.checked && isValid(r.detail)){
-                          this.setState({selected: this.state.selected.concat(r)});
-                        } else {
-                          this.setState({selected: this.state.selected.filter((selected)=>{
-                            return selected.id !== r.id;
-                          })});
-                        }
-                      }}/> {r.detail}</li>;
-          })}
-        </ul>
+        </Modal.Header>
+        <Modal.Body>
 
-        <button
-          className='btn btn-success'
-          style={{width: 120, fontSize:16, paddingBottom: 7}}
-          disabled={this.state.selected.length === 0}
-          onClick={()=>{
-            if(this.context.gapi !== null){
-              messages.forEach((msg)=>{
-                const base64EncodedMsg = Base64.encodeURI(msg);
-                const request = this.context.gapi.client.gmail.users.messages.send({
-                  'userId': 'me',
-                  'resource': {
-                    'raw': base64EncodedMsg
-                  }
-                });
-                request.execute((result)=>{
-                  console.log('so ...');
-                  console.log(result);
-                  if(typeof result.code === 'undefined') {
-                    console.log('sent ok');
-                  } else {
-                    console.log('oh noes an error sending.');
-                  }
-                });
-              });
-            }
-          }}>Send <i className='fa fa-paper-plane-o' aria-hidden='true'></i></button>
+          <h4>{areInvalidRecipients?'Valid ':''}Recipients {areInvalidRecipients?<small>{this.state.status.length} valid of {this.props.recipients.length}</small>:''}</h4>
+          <ul style={{listStyleType: 'none', paddingLeft: 0}}>
+            {this.state.status.map((r)=>{
+              return (
+                <li key={r.id}>
+                  {r.detail} <ShowStatus msg={r.sent} />
+                </li>
+              );
+            })}
+          </ul>
 
-      </div>
+          {areInvalidRecipients?<div style={{marginTop: '20px'}}>
+            <h4>{this.props.recipients.length - this.state.status.length} Invalid Recipient{this.props.recipients.length - this.state.status.length>1?'s':''} <small> No email will be sent to {this.props.recipients.length - this.state.status.length>1?'these':'it'}.</small></h4>
+            <ul style={{listStyleType: 'none', paddingLeft: 0}}>
+              {this.props.recipients.filter((r)=>{ return !isValid(r.detail); }).map((r)=>{
+                return (
+                  <li key={r.id} >
+                    <span style={invalidStyle}>{r.detail}</span>
+                  </li>
+                );
+
+              })}
+            </ul>
+          </div>:''}
+        </Modal.Body>
+      </Modal>
     );
+  }
+
+  _sendEmail(){
+    if(this.context.gapi !== null){
+      this.setState({sending: true, status: this.state.status.map((s)=>{
+        s.sent = 'waiting';
+        return s;
+      })});
+      const emails = this.state.status.map((r)=>{
+        return {
+          recipient: r.id,
+          msg: `To: ${getEmail(r.detail)}\r\nSubject: ${this.props.subject}\r\n\r\n${contentForRecipient(this.props.content, r.id).join('\r\n\r\n')}`
+        };
+      });
+
+      eachOfLimit(
+        emails,
+        2,
+        (email, index, callback)=>{
+          if(this.state.abort){
+            this.setState({status: this.state.status.map((s)=>{
+              s.sent = (s.id === email.recipient)? 'aborted': s.sent;
+              return s;
+            })}, callback());
+          } else {
+            const base64EncodedMsg = Base64.encodeURI(email.msg);
+            this.setState({status: this.state.status.map((s)=>{
+              s.sent = (s.id === email.recipient)? 'sending': s.sent;
+              return s;
+            })});
+            this.context.gapi.client.gmail.users.messages.send({
+              'userId': 'me',
+              'resource': {
+                'raw': base64EncodedMsg
+              }
+            }).then(()=>{
+              this.setState({status: this.state.status.map((s)=>{
+                s.sent = (s.id === email.recipient)? 'yes': s.sent;
+                return s;
+              })}, callback());
+            }, (reason)=>{
+              this.setState({status: this.state.status.map((s)=>{
+                s.sent = (s.id === email.recipient)? reason.result.error.message: s.sent;
+                return s;
+              })}, callback());
+            });
+          }
+        },
+        ()=>{
+          this.setState({sending: false, abort: false});
+        }
+      );
+    }
   }
 }
 
@@ -95,9 +157,23 @@ EmailSender.contextTypes = {
 };
 
 EmailSender.propTypes = {
+  show: React.PropTypes.bool,
+  onDone: React.PropTypes.func,
   subject: React.PropTypes.string,
   content: React.PropTypes.array,
   recipients: React.PropTypes.array
+};
+
+const ShowStatus = (props) => {
+  if(props.msg === 'yes')return <span className='label label-success'>Sent</span>;
+  if(props.msg === 'sending')return <span className='label label-info'><i className="fa fa-circle-o-notch fa-spin" aria-hidden="true"></i> sending</span>;
+  if(props.msg === 'waiting')return <span><i className="fa fa-circle-o-notch fa-spin" aria-hidden="true"></i> waiting</span>;
+  if(props.msg === 'aborted')return <span className='label label-danger'>{props.msg}</span>;
+  return <span className='label label-warning'>{props.msg}</span>;
+};
+
+ShowStatus.propTypes = {
+  msg: React.PropTypes.string
 };
 
 export default EmailSender;

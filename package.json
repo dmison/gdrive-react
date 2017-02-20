@@ -36,6 +36,7 @@
     "webpack-dev-server": "^1.16.2"
   },
   "dependencies": {
+    "async": "^2.1.5",
     "bootstrap": "^3.3.7",
     "font-awesome": "^4.7.0",
     "google-client-api": "^1.0.4",
