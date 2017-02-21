@@ -18,6 +18,7 @@ module.exports = {
   resolve: {
     extensions: ['', '.js', '.jsx', 'css', 'json', 'less'],
     alias: {
+      // https://github.com/wycats/handlebars.js/issues/1174#issuecomment-229918935
       handlebars: 'handlebars/dist/handlebars.min.js'
     }
   },
