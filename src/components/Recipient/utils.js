@@ -7,7 +7,12 @@ const getEmail = (detail) => {
   return isValid(detail)? detail.split(' ').reverse().shift() : '';
 };
 
+const getName = (detail) => {
+  return detail.replace(getEmail(detail),'').trim();
+};
+
 export {
   isValid,
-  getEmail
+  getEmail,
+  getName
 };

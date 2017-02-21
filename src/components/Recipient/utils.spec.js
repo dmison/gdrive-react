@@ -1,6 +1,6 @@
 /* global describe it */
 import {expect} from 'chai';
-import {isValid, getEmail} from './utils.js';
+import {isValid, getEmail, getName} from './utils.js';
 
 describe('isValid()', () => {
 
@@ -32,4 +32,13 @@ describe('getEmail()', () => {
     expect(actual).to.equal('');
   });
 
+});
+
+
+describe('getName()', () => {
+  it('should return the name portion', () => {
+    const detail = 'Jane Doe djoe@anon.com';
+    const actual = getName(detail);
+    expect(actual).to.equal('Jane Doe');
+  });
 });
