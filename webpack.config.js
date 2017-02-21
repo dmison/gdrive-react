@@ -16,8 +16,12 @@ module.exports = {
   },
 
   resolve: {
-    extensions: ['', '.js', '.jsx', 'css', 'json', 'less']
+    extensions: ['', '.js', '.jsx', 'css', 'json', 'less'],
+    alias: {
+      handlebars: 'handlebars/dist/handlebars.min.js'
+    }
   },
+
 
   plugins: [
     new ExtractTextPlugin('styles.css', { allChunks: false })

@@ -1,27 +1,43 @@
 import React from 'react';
 import Select from 'react-select';
 import contentForRecipient from './ContentForRecipient.js';
+import {getEmail, getName} from '../Recipient/utils.js';
+import Handlebars from 'handlebars';
 
 class Previewer extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      selectedRecipient: ''
+      selectedRecipient: null
     };
   }
 
-  componentDidMount(){
-    if(this.props.recipients.length > 0){
-      this.setState({selectedRecipient: this.props.recipients[0].id});
-    }
-  }
-
   render(){
-    const previewContent = contentForRecipient(this.props.content, this.state.selectedRecipient);
+    let previewContent = '';
+
+    const theSelectedRecipient = this.props.recipients.find((r)=>{
+      return r.id === this.state.selectedRecipient;
+    });
+
+    if(typeof theSelectedRecipient === 'undefined'){
+      previewContent = 'no selected recipient';
+    } else {
+      let recipientDetail = theSelectedRecipient.detail;
+      const rawContent = contentForRecipient(this.props.content, this.state.selectedRecipient).map((c)=>{
+        return c===''?'':`${c}\n\n`;
+      }).join('');
+      try{
+        const builder = Handlebars.compile(rawContent);
+        previewContent = builder({ email:getEmail(recipientDetail), name:getName(recipientDetail) });
+      }catch(e){
+        previewContent = rawContent;
+      }
+    }
+
     return (
       <div>
         <Select
-          style={{marginTop:3}}
+          style={{margin:'10px 0px 5px 0px'}}
           name='select-recipient'
           clearable={false}
           value={this.state.selectedRecipient}
@@ -36,9 +52,7 @@ class Previewer extends React.Component {
           />
 
         <pre style={{paddingLeft:10}}>
-            {previewContent.map((c)=>{
-              return c===''?'':`${c}\n\n`;
-            })}
+            {previewContent}
         </pre>
     </div>
 

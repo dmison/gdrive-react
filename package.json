@@ -40,6 +40,7 @@
     "bootstrap": "^3.3.7",
     "font-awesome": "^4.7.0",
     "google-client-api": "^1.0.4",
+    "handlebars": "^4.0.6",
     "index-template": "^1.1.1",
     "js-base64": "^2.1.9",
     "lodash": "^4.17.2",
