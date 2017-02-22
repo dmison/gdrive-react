@@ -3,11 +3,27 @@ import uuid from 'node-uuid';
 const mailings_reducer = (mailings = [], action) => {
   switch (action.type){
 
+  case 'ADD_RECIPIENT':
+    return mailings.map((m)=>{
+      if (m.id === action.mailing){
+        m.recipients = m.recipients.concat(action.newIDs);
+      }
+      return m;
+    });
+
+  case 'DEL_RECIPIENT':
+    return mailings.map((m)=>{
+      m.recipients = m.recipients.filter((r)=>{
+        return r !== action.recipient;
+      });
+      return m;
+    });
+
   case 'ADD_MAILING':
     return mailings.concat({
       id: uuid.v1(),
       name: action.name,
-      recepients: [],
+      recipients: [],
       subject:'',
       content: []
     });

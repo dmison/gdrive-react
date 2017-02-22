@@ -16,10 +16,16 @@ import {updateMailing} from './actions.js';
 import { addRecipient, delRecipient, updateRecipient } from '../Recipient';
 
 const mapStateToProps = (state, ownProps) => {
+  const mailing = state.mailings.reduce((prev,curr)=>{ return curr.id === ownProps.params.uuid? curr:prev; }, null);
+  const recipients = state.recipients.filter((recipient)=>{
+    return mailing.recipients.find((mailingRecipient)=>{
+      return recipient.id === mailingRecipient;
+    });
+  });
   return {
     uuid: ownProps.params.uuid,
-    mailing: state.mailings.reduce((prev,curr)=>{ return curr.id === ownProps.params.uuid? curr:prev; }, null),
-    recipients: state.recipients.filter((recipient)=>{ return recipient.mailing === ownProps.params.uuid; }),
+    mailing: mailing,
+    recipients: recipients, //state.recipients.filter((recipient)=>{ return recipient.mailing === ownProps.params.uuid; }),
     content: state.content.filter((content)=>{ return content.mailing === ownProps.params.uuid; })
   };
 };

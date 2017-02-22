@@ -6,8 +6,7 @@ const recipients_reducer = (recipients = [], action) => {
     return recipients.concat(action.details.map((d, index)=>{
       return {
         id: action.newIDs[index],
-        detail: d.trim(),
-        mailing: action.mailing,
+        detail: d.trim()
       };
     }));
 
