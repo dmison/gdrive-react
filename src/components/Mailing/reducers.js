@@ -42,6 +42,23 @@ const mailings_reducer = (mailings = [], action) => {
       return m.id !== action.mailing;
     });
 
+  case 'DUPE_MAILING': {
+    const toDupe = mailings.filter((m)=>{
+      return m.id === action.mailing;
+    });
+    // console.log('toDupe: ', toDupe);
+    //
+    const theDupe = toDupe.map((mailing)=>{
+      mailing = JSON.parse(JSON.stringify(mailing));
+      mailing.id = action.newID;
+      mailing.name = `copy of ${mailing.name}`;
+      return mailing;
+    });
+
+    return mailings.concat(theDupe);
+
+  }
+
   default: return mailings;
   }
 };

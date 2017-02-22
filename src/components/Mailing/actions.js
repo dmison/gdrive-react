@@ -1,3 +1,5 @@
+import uuid from 'node-uuid';
+
 const addMailingAction = (name) => {
   return {
     type: 'ADD_MAILING',
@@ -21,8 +23,17 @@ const deleteMailing = (id) => {
   };
 };
 
+const dupeMailing = (id) => {
+  return {
+    type: 'DUPE_MAILING',
+    mailing: id,
+    newID: uuid.v1()
+  };
+};
+
 export {
   addMailingAction,
   updateMailing,
-  deleteMailing
+  deleteMailing,
+  dupeMailing
 };

@@ -1,7 +1,7 @@
 import {connect} from 'react-redux';
 import MailingsManager from './MailingsManager';
 
-import {addMailingAction, deleteMailing} from './actions.js';
+import {addMailingAction, deleteMailing, dupeMailing} from './actions.js';
 
 const mapStateToProps = (state) => {
   return {
@@ -12,7 +12,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     addMailing: (name) => { dispatch(addMailingAction(name)); },
-    delMailing: (id) => { dispatch(deleteMailing(id)); }
+    delMailing: (id) => { dispatch(deleteMailing(id)); },
+    dupeMailing: (id) => { dispatch(dupeMailing(id)); }
   };
 };
 

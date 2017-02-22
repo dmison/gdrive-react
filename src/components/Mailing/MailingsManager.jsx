@@ -40,6 +40,7 @@ class MailingsManager extends React.Component {
                     this.props.delMailing(mailing.id);
                   }
                 }} className='mailingDel fa fa-times ' style={{color: '#982d22'}} aria-hidden='true' title='delete mailing'></i>
+              <i onClick={()=>{ this.props.dupeMailing(mailing.id); }} className='mailingDel fa fa-copy ' aria-hidden='true' title='duplicate mailing'></i>
               </li>
             );
           })}
@@ -53,7 +54,8 @@ class MailingsManager extends React.Component {
 MailingsManager.propTypes = {
   mailings: React.PropTypes.array,
   addMailing: React.PropTypes.func,
-  delMailing: React.PropTypes.func
+  delMailing: React.PropTypes.func,
+  dupeMailing: React.PropTypes.func
 };
 
 class AddNewMailingControl extends React.Component {
