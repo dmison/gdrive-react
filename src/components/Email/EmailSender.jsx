@@ -24,7 +24,7 @@ class EmailSender extends React.Component {
       this.setState({status: this.props.recipients.map((recipient)=>{
         const content = contentForRecipient(this.props.content, recipient.id).map((c)=>{
           return c===''?'':`${c}\n\n`;
-        }).join('\r\n\r\n');
+        }).join('');
         let compiledBody = '';
         let contentError = false;
         try{
