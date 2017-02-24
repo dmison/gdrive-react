@@ -3,29 +3,7 @@ import uuid from 'node-uuid';
 const content_reducer = (content = [], action) => {
   switch(action.type){
 
-  case 'ADD_RECIPIENT':
-    return content.map((c)=>{
-      if(c.mailing === action.mailing && c.type === 'per_recipient'){
-        c.editorContent = c.editorContent.concat(action.newIDs.map((id)=>{
-          return {
-            recipient: id,
-            editorContent: ''
-          };
-        }));
-      }
-      return c;
-    });
-
-  case 'DEL_RECIPIENT':
-    return content.map((c)=>{
-      if(c.mailing === action.mailing && c.type === 'per_recipient'){
-        c.editorContent = c.editorContent.filter((ec)=>{
-          return ec.recipient !== action.recipient;
-        });
-      }
-      return c;
-    });
-
+  // ========================================================= CONTENT ACTIONS
   case 'ADD_COMMON_CONTENT':
     return content.concat({
       id: uuid.v1(),
@@ -104,6 +82,32 @@ const content_reducer = (content = [], action) => {
   case 'MOVE_CONTENT':{
     return moveContent(content, action.content, action.direction);
   }
+
+  // ======================================================== RECIPIENT ACTIONS
+  case 'ADD_RECIPIENT':
+    return content.map((c)=>{
+      if(c.mailing === action.mailing && c.type === 'per_recipient'){
+        c.editorContent = c.editorContent.concat(action.newIDs.map((id)=>{
+          return {
+            recipient: id,
+            editorContent: ''
+          };
+        }));
+      }
+      return c;
+    });
+
+  case 'DEL_RECIPIENT':
+  case 'PURGE_RECIPIENT':
+    return content.map((c)=>{
+      if(c.mailing === action.mailing && c.type === 'per_recipient'){
+        c.editorContent = c.editorContent.filter((ec)=>{
+          return ec.recipient !== action.recipient;
+        });
+      }
+      return c;
+    });
+
 
   default: return content;
   }

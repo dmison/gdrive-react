@@ -10,10 +10,19 @@ const recipients_reducer = (recipients = [], action) => {
       };
     }));
 
-  case 'DEL_RECIPIENT':
+  case 'PURGE_RECIPIENT':
     return recipients.filter((recipient)=>{
-      return !(recipient.id === action.recipient && recipient.mailing === action.mailing);
+      return !(recipient.id === action.recipient);
     });
+
+  case 'MERGE_RECIPIENTS':{
+    return recipients.filter((recipient)=>{
+      const isFound = action.oldones.find((oo)=>{
+        return oo.id === recipient.id;
+      });
+      return typeof isFound === 'undefined';
+    });
+  }
 
   case 'UPDATE_RECIPIENT':
     return recipients.map((r)=>{

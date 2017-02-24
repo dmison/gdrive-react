@@ -1,0 +1,53 @@
+ul.RecipientsGlobalList {
+  padding: 0px;
+
+  li.recipient {
+    list-style-type: none;
+    padding: 7px 10px 7px 10px;
+    border-bottom: 1px solid #efefef;
+    // background-color: #efefef;
+
+
+    span.detail {
+      padding: 3px;
+    }
+
+    span.delete {
+      float: right;
+      margin-left: 15px;
+      a {
+        color: white;
+      }
+    }
+
+    span.merge {
+      float: right;
+      margin-left: 15px;
+      a {
+        color: white;
+      }
+    }
+  }
+
+  li.duplicate {
+    span.detail {
+      background-color: #ccc;
+    }
+  }
+
+  ul {
+    padding-top: 5px;
+    li {
+      background-color: #efefef;
+      padding: 3px;
+      margin-bottom: 1px;
+    }
+  }
+
+}
+
+
+
+ul.RecipientsGlobalList li.recipient:hover {
+        background-color: #f7f7f7;
+      }
