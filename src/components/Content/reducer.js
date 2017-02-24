@@ -26,7 +26,6 @@ const content_reducer = (content = [], action) => {
     });
 
   case 'UPDATE_PER_RECIPIENT_CONTENT':
-    //action.content, action.recipient, action.editorContent
     return content.map((c)=>{
       if(c.id === action.content){
         c.editorContent = c.editorContent.map((ec)=>{
@@ -98,9 +97,18 @@ const content_reducer = (content = [], action) => {
     });
 
   case 'DEL_RECIPIENT':
-  case 'PURGE_RECIPIENT':
     return content.map((c)=>{
       if(c.mailing === action.mailing && c.type === 'per_recipient'){
+        c.editorContent = c.editorContent.filter((ec)=>{
+          return ec.recipient !== action.recipient;
+        });
+      }
+      return c;
+    });
+
+  case 'PURGE_RECIPIENT':
+    return content.map((c)=>{
+      if(c.type === 'per_recipient'){
         c.editorContent = c.editorContent.filter((ec)=>{
           return ec.recipient !== action.recipient;
         });
