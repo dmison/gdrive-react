@@ -82,6 +82,23 @@ const content_reducer = (content = [], action) => {
     return moveContent(content, action.content, action.direction);
   }
 
+  // ======================================================== MAILING ACTIONS
+  case 'DELETE_MAILING':
+    return content.filter((c)=>{
+      return c.mailing !== action.mailing;
+    });
+
+  case 'DUPE_MAILING': {
+    const newContent = JSON.parse(JSON.stringify(content.filter((c)=>{
+      return c.mailing === action.mailing;
+    })));
+    return content.concat(newContent.map((nc)=>{
+      nc.id =uuid.v1();
+      nc.mailing = action.newID;
+      return nc;
+    }));
+  }
+
   // ======================================================== RECIPIENT ACTIONS
   case 'ADD_RECIPIENT':
     return content.map((c)=>{
