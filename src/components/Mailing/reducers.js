@@ -49,15 +49,17 @@ const mailings_reducer = (mailings = [], action) => {
       return m;
     });
 
-  case 'MERGE_RECIPIENTS':
-    return mailings.map((m)=>{
+  case 'MERGE_RECIPIENTS': {
+    const result = mailings.map((m)=>{
       m.recipients = m.recipients.map((r)=>{
-        const inOldOnes = typeof (action.oldones.find((oo)=>{ return oo.id === r; })) !== 'undefined';
-        if(inOldOnes)r = action.recipient.id;
+        const inOldOnes = typeof (action.oldones.find((oo)=>{ return oo === r; })) !== 'undefined';
+        if(inOldOnes)r = action.recipient;
         return r;
       });
       return m;
     });
+    return result;
+  }
 
   case 'PURGE_RECIPIENT':
     return mailings.map((m)=>{

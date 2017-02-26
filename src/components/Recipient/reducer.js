@@ -16,12 +16,13 @@ const recipients_reducer = (recipients = [], action) => {
     });
 
   case 'MERGE_RECIPIENTS':{
-    return recipients.filter((recipient)=>{
+    const results = recipients.filter((recipient)=>{
       const isFound = action.oldones.find((oo)=>{
-        return oo.id === recipient.id;
+        return oo === recipient.id;
       });
       return typeof isFound === 'undefined';
     });
+    return results;
   }
 
   case 'UPDATE_RECIPIENT':

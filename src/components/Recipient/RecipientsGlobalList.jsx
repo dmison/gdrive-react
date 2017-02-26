@@ -46,9 +46,9 @@ class RecipientsGlobalList extends React.Component {
                 }}>delete</a></span>
                 <span className='merge btn-info btn btn-xs btn-default ' style={{visibility: isDuplicate?'visible':'hidden'}}><a onClick={()=>{
                   if(window.confirm('Merging recipients is unrecoverable.  Are you sure?')){
-                    this.props.mergeRecipients(r, this.props.recipients.filter((recipient)=>{
+                    this.props.mergeRecipients(r.id, this.props.recipients.filter((recipient)=>{
                       return r.id !== recipient.id && r.detail === recipient.detail;
-                    }));
+                    }).map((r)=> {return r.id;}));
                   }
                 }}>merge {duplicates.length}</a></span>
                 <ul>
