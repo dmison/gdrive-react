@@ -21,20 +21,26 @@ class Editor extends React.Component {
   render() {
     const name = `${this.props.mode}Editor`;
 
+    const hardLines = this.props.content.split('\n').map((chars)=>{
+      return chars.length > 90? chars.length/90 : 1;
+    }).reduce((curr, prev)=>{
+      return prev+curr;
+    }, 0);
+
     return (
       <AceEditor
         name={name}
-        height={`${(this.props.content.split('\n').length)*16+20}px`}
+        height={`${(hardLines)*16+20}px`}
         mode={this.props.mode}
         theme={this.props.theme}
         width='90%'
-        fontSize={14}
+        fontSize={12}
         onChange={(content)=>{ this.props.onChange(content); }}
         value={this.props.content}
         wrapEnabled={this.props.wrapEnabled}
         showPrintMargin={false}
-        enableBasicAutocompletion={true}
-        enableLiveAutocompletion={true}
+        enableBasicAutocompletion={false}
+        enableLiveAutocompletion={false}
       />
     );
   }
