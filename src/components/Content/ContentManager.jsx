@@ -7,7 +7,7 @@ import EmailSender from '../Email/EmailSender.jsx';
 
 import Tabs from 'react-bootstrap/lib/Tabs';
 import Tab from 'react-bootstrap/lib/Tab';
-
+import FlipMove from 'react-flip-move';
 
 class ContentManager extends React.Component {
 
@@ -49,8 +49,9 @@ class ContentManager extends React.Component {
                     <button style={{marginRight:10, paddingBottom:5}} className='btn btn-default' onClick={this.props.addGroupContent}><span className='fa fa-plus'></span> Add Group Content</button>
                 </div>
 
-                <ul style={{ listStyleType:'none', paddingLeft:0}}>
-                  {this.props.content.map((content, index)=>{
+
+                <FlipMove duration={350} easing="ease-out" staggerDurationBy='30'>
+                  {this.props.content.map((content)=>{
                     let Editor = '';
                     switch(content.type){
                     case 'common':
@@ -85,9 +86,9 @@ class ContentManager extends React.Component {
                       break;
                     default: '';
                     }
-                    return <li key={index}>{Editor}</li>;
+                    return <div key={content.id}>{Editor}</div>;
                   })}
-                </ul>
+                </FlipMove>
             </Tab>
 
             <Tab eventKey={2} title="Preview">
