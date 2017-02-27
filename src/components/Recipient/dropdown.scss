@@ -1,0 +1,23 @@
+ul.dropdown {
+  position: absolute;
+  border: 1px solid grey;
+  padding: 3px;
+  min-width: 200px;
+  background-color: white;
+  z-index: 20;
+
+  li.dropdownItem {
+    list-style-type: none;
+    cursor: pointer;
+    margin: 0px;
+    padding: 5px;
+    &:hover {
+      background-color: lightgrey;
+    }
+
+    a {
+      text-decoration: none;
+    }
+  }
+
+}

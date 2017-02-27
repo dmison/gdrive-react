@@ -1,6 +1,6 @@
 import React from 'react';
 import Recipient from './Recipient.jsx';
-
+import AddNewRecipientControl from './AddNewRecipientControl.jsx';
 const recipientBarStyle = {
   // backgroundColor: 'red'
 };
@@ -24,7 +24,7 @@ class RecipientsManager extends React.Component {
               return (
                 <li style={{display: 'inline-block', listStyleType: 'none', marginBottom:6}} key={index}>
                   <Recipient recipient={recipient}
-                    _remove={()=>{this.props.delRecipient(recipient.id);}}
+                    _remove={ ()=>{ if(window.confirm('Removing a recipients will delete their content.  Are you sure?')){ this.props.delRecipient(recipient.id); }} }
                     _update={(detail)=>{ this.props.updateRecipient(recipient.id, detail);}}
                     />
                 </li>
@@ -33,16 +33,15 @@ class RecipientsManager extends React.Component {
             <li style={{display: 'inline-block', listStyleType: 'none'}}>
               {this.state.adding ? <AddNewRecipientControl
                 save={(detail)=>{ this.props.addRecipient(detail); this.setState({ adding: false});}}
-                cancel={()=>{ this.setState({ adding: false}); }} /> : <button onClick={()=>{ this.setState({ adding: true}); }}>+</button>}
+                cancel={()=>{ this.setState({ adding: false}); }}
+                globalRecipients={this.props.globalRecipients}
+                attachRecipient={(id)=>{this.props.attachRecipient(id); this.setState({adding: false}); }}
+                recipients={this.props.recipients}
+                /> : <button onClick={()=>{ this.setState({ adding: true}); }}>+</button>}
             </li>
 
             </ul>
         </div>
-        <ul>
-          {this.props.globalRecipients.map((gr)=>{
-            return <li key={gr.id}><a onClick={()=>{ this.props.attachRecipient(gr.id); }}>{gr.detail}</a></li>;
-          })}
-        </ul>
       </div>
     );
   }
@@ -61,41 +60,6 @@ RecipientsManager.propTypes = {
 };
 
 
-class AddNewRecipientControl extends React.Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      detail: ''
-    };
-  }
-
-  componentDidMount(){
-    this.detailEditBox.focus();
-  }
-
-  render(){
-    return (
-      <div style={{display: 'inline'}}>
-        <input
-          style={{width:200}}
-          ref={(input)=>{ this.detailEditBox = input; }}
-          type='text'
-          placeholder='[Name] [email]'
-          value={this.state.name}
-          onChange={(event)=>{ this.setState({detail:event.target.value}); }}
-        />
-      <button onClick={()=>{this.props.save(this.state.detail);}}>Save</button>
-        <button onClick={this.props.cancel}>Cancel</button>
-      </div>
-    );
-  }
-
-}
-
-AddNewRecipientControl.propTypes = {
-  save: React.PropTypes.func,
-  cancel: React.PropTypes.func
-};
 
 
 export default RecipientsManager;
