@@ -1,4 +1,5 @@
 import uuid from 'node-uuid';
+import {contains} from 'underscore';
 
 const mailings_reducer = (mailings = [], action) => {
   switch (action.type){
@@ -79,7 +80,15 @@ const mailings_reducer = (mailings = [], action) => {
       return m;
     });
 
-
+  case 'ATTACH_RECIPIENT':
+    return mailings.map((m)=>{
+      if(m.id === action.mailing){
+        if(!contains(m.recipients, action.recipient)){
+          m.recipients = m.recipients.concat(action.recipient);
+        }
+      }
+      return m;
+    });
 
   default: return mailings;
   }

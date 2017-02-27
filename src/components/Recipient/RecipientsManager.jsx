@@ -38,6 +38,11 @@ class RecipientsManager extends React.Component {
 
             </ul>
         </div>
+        <ul>
+          {this.props.globalRecipients.map((gr)=>{
+            return <li key={gr.id}><a onClick={()=>{ this.props.attachRecipient(gr.id); }}>{gr.detail}</a></li>;
+          })}
+        </ul>
       </div>
     );
   }
@@ -48,9 +53,11 @@ class RecipientsManager extends React.Component {
 RecipientsManager.propTypes = {
   mailing: React.PropTypes.string,
   recipients: React.PropTypes.array,
+  globalRecipients: React.PropTypes.array,
   addRecipient: React.PropTypes.func,
   delRecipient: React.PropTypes.func,
-  updateRecipient: React.PropTypes.func
+  updateRecipient: React.PropTypes.func,
+  attachRecipient: React.PropTypes.func
 };
 
 

@@ -113,6 +113,20 @@ const content_reducer = (content = [], action) => {
       }
       return c;
     });
+    
+  // ======================================================== RECIPIENT ACTIONS
+  case 'ATTACH_RECIPIENT':
+    return content.map((c)=>{
+      if(c.mailing === action.mailing && c.type === 'per_recipient'){
+        if(!contains(c.editorContent.map((ec)=>{return ec.id;}), action.recipient)){
+          c.editorContent = c.editorContent.concat({
+            recipient: action.recipient,
+            editorContent: ''
+          });
+        }
+      }
+      return c;
+    });
 
   case 'DEL_RECIPIENT':
     return content.map((c)=>{

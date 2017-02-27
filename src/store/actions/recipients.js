@@ -17,6 +17,14 @@ const delRecipient = (mailing, recipient) => {
   };
 };
 
+const attachRecipient = (recipient, mailing) => {
+  return {
+    type: 'ATTACH_RECIPIENT',
+    recipient: recipient,
+    mailing: mailing
+  };
+};
+
 const purgeRecipient = (recipient) => {
   return {
     type: 'PURGE_RECIPIENT',
@@ -43,6 +51,7 @@ const mergeRecipients = (recipient, oldones) => {
 export {
   addRecipient,
   delRecipient,
+  attachRecipient,
   updateRecipient,
   purgeRecipient,
   mergeRecipients

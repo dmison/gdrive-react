@@ -13,7 +13,7 @@ import {  addCommonContent,
 
 import {updateMailing} from '../../store/actions/mailings.js';
 
-import { addRecipient, delRecipient, updateRecipient } from '../../store/actions/recipients.js';
+import { addRecipient, delRecipient, updateRecipient, attachRecipient } from '../../store/actions/recipients.js';
 
 const mapStateToProps = (state, ownProps) => {
   const mailing = state.mailings.reduce((prev,curr)=>{ return curr.id === ownProps.params.uuid? curr:prev; }, null);
@@ -26,6 +26,7 @@ const mapStateToProps = (state, ownProps) => {
     uuid: ownProps.params.uuid,
     mailing: mailing,
     recipients: recipients, //state.recipients.filter((recipient)=>{ return recipient.mailing === ownProps.params.uuid; }),
+    globalRecipients: state.recipients,
     content: state.content.filter((content)=>{ return content.mailing === ownProps.params.uuid; })
   };
 };
@@ -36,6 +37,7 @@ const mapDispatchToProps = (dispatch) => {
     addRecipient: (mailing, detail) => { dispatch(addRecipient(mailing, detail)); },
     delRecipient: (mailing, recipient) => { dispatch(delRecipient(mailing, recipient)); },
     updateRecipient: (recipient, detail) => { dispatch(updateRecipient(recipient, detail)); },
+    attachRecipient: (recipients, mailing) => { dispatch(attachRecipient(recipients, mailing)); },
 
     addCommonContent: (mailing) => { dispatch(addCommonContent(mailing)); },
     updateCommonContentText: (content, editorContent) => { dispatch(updateCommonContentText(content, editorContent)); },

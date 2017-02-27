@@ -41,9 +41,11 @@ const MailingComposer = (props) => {
 
         <RecipientsManager
           recipients={props.recipients}
+          globalRecipients={props.globalRecipients}
           addRecipient={ (detail)=>{ props.addRecipient(props.uuid, detail); } }
           delRecipient={ (id)=>{ props.delRecipient(props.uuid, id); } }
           updateRecipient={ (id, detail)=> { props.updateRecipient(id, detail); } }
+          attachRecipient={(recipient)=> {props.attachRecipient(recipient, props.uuid); } }
         />
 
       </div>
@@ -69,12 +71,14 @@ const MailingComposer = (props) => {
 MailingComposer.propTypes = {
   uuid: React.PropTypes.string,
   recipients: React.PropTypes.array,
+  globalRecipients: React.PropTypes.array,
   mailing: React.PropTypes.object,
   updateMailing: React.PropTypes.func,
   content: React.PropTypes.array,
   addRecipient: React.PropTypes.func,
   delRecipient: React.PropTypes.func,
   updateRecipient: React.PropTypes.func,
+  attachRecipient: React.PropTypes.func,
   addCommonContent: React.PropTypes.func,
   addPerRecipientContent: React.PropTypes.func,
   updatePerRecipientContent: React.PropTypes.func,
