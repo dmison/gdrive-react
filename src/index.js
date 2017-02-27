@@ -16,7 +16,7 @@ import {RecipientsGlobalListContainer} from './components/Recipient';
 import {MailingsManagerContainer} from './components/Mailing';
 import {MailingComposerContainer} from './components/Mailing';
 
-import store from './store.js';
+import {store} from './store';
 
 render(<Provider store={store}>
   <Router history={hashHistory}>

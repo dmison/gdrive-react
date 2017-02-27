@@ -1,4 +1,5 @@
 import uuid from 'node-uuid';
+import {contains} from 'underscore';
 
 const content_reducer = (content = [], action) => {
   switch(action.type){
@@ -133,6 +134,28 @@ const content_reducer = (content = [], action) => {
       return c;
     });
 
+
+  case 'MERGE_RECIPIENTS':{
+    return content.map((c)=>{
+      //go through all group blocks
+      if(c.type==='group'){
+        // if r is found in action.oldones, r = recipient
+        c.recipients = c.recipients.map((r)=>{
+          if(contains(action.oldones, r)) r = action.recipient;
+          return r;
+        });
+      }
+      // go through all per_recipient blocks
+      // if any for oldones, then update to recipient
+      if(c.type==='per_recipient'){
+        c.editorContent = c.editorContent.map((ec)=>{
+          if(contains(action.oldones, ec.recipient)) ec.recipient = action.recipient;
+          return ec;
+        });
+      }
+      return c;
+    });
+  }
 
   default: return content;
   }

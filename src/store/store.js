@@ -1,9 +1,9 @@
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { loadState, saveState } from './localStorage';
 import throttle from 'lodash/throttle';
-import {mailings_reducer} from './components/Mailing';
-import {recipients_reducer} from './components/Recipient';
-import {content_reducer} from './components/Content';
+import mailings_reducer from './reducers/mailings.js';
+import recipients_reducer from './reducers/recipients.js';
+import content_reducer from './reducers/content.js';
 
 const logger = store => next => action => {
   console.log('dispatching', action);

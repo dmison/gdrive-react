@@ -9,11 +9,11 @@ import {  addCommonContent,
           updateGroupContentText,
           updateGroupContentRecipients,
           delContent,
-          moveContent} from '../Content';
+          moveContent} from '../../store/actions/content.js';
 
-import {updateMailing} from './actions.js';
+import {updateMailing} from '../../store/actions/mailings.js';
 
-import { addRecipient, delRecipient, updateRecipient } from '../Recipient';
+import { addRecipient, delRecipient, updateRecipient } from '../../store/actions/recipients.js';
 
 const mapStateToProps = (state, ownProps) => {
   const mailing = state.mailings.reduce((prev,curr)=>{ return curr.id === ownProps.params.uuid? curr:prev; }, null);

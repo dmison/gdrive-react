@@ -1,7 +1,7 @@
 import {connect} from 'react-redux';
 import MailingsManager from './MailingsManager';
 
-import {addMailingAction, deleteMailing, dupeMailing} from './actions.js';
+import {addMailingAction, deleteMailing, dupeMailing} from '../../store/actions/mailings.js';
 
 const mapStateToProps = (state) => {
   return {

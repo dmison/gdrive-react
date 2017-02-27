@@ -1,7 +1,7 @@
 import {connect} from 'react-redux';
 import RecipientsGlobalList from './RecipientsGlobalList.jsx';
 
-import { purgeRecipient, mergeRecipients } from './actions.js';
+import { purgeRecipient, mergeRecipients } from '../../store/actions/recipients.js';
 
 const mapStateToProps = (state) => {
   return {
