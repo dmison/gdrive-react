@@ -8,3 +8,4 @@ app/*.eot
 app/*.svg
 app/*.woff
 app/*.ttf
+.DS_Store
